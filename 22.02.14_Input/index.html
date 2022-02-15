@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first html</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+    <script src="scripts.js"></script>
+    <script src="time.js"></script>
+    <script src="Component.js"></script>
+    <script src="GameObject.js"></script>
+    <script src="RectangleDrawComponent.js"></script>
+    <script src="RectangleUpdateComponent.js"></script>
+    <script src="RectangleGameObject.js"></script>
+
+    <script>
+        "use strict"
+
+        let mouseIsDown = false;
+        document.addEventListener("mousedown", mouseDown);
+        document.addEventListener("mouseup", mouseUp);
+
+
+        function mouseDown() {
+            mouseIsDown = true;
+            mouseEvent();
+        }
+
+        function mouseUp() {
+            mouseIsDown = false;
+            mouseEvent()
+        }
+
+        function mouseEvent(){
+            for(let object of gameObjects){
+                for(let component of object.components){
+                    if(component.mouseEvent){
+                        component.mouseEvent();
+                    }
+                }
+            }
+        }
+
+
+
+        let { canvas, ctx } = getCanvas();
+
+        let gameObjects = []
+
+        // let startX = 100;
+        // let startY = 400;
+        // let offsetX = 50;
+        // let width = 10;
+        // let height = 50;
+        // let max = 30;
+        // let maxWidth = 400;
+
+        //Define the model
+        for (let i = 0; i < max; i++) {
+
+            let percent = i / max;
+            let offset = maxWidth * percent;
+            let h = (1 - (i / max)) * height
+
+            let x = startX + offset;
+            let y = startY - 50 - h / 2;
+            let w = width + i * 10;
+
+            let r = 255;
+            let g = percent * 255;
+            let b = 0;
+
+            gameObjects.push(new RectangleGameObject(x, y, w, h, r, g, b, percent))
+        }
+
+        function tick() {
+            update()
+            draw()
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        function update() {
+            for (let rectangle of gameObjects) {
+
+                rectangle.update();
+            }
+        }
+
+        function draw() {
+
+            ctx.fillStyle = "black"
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            for (let rectangle of gameObjects) {
+                rectangle.draw(ctx);
+            }
+        }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>
