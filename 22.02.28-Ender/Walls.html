@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Walls Game</title>
+  <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+  <canvas id="canv"></canvas>
+  <script type="module">
+    
+    //static Game class
+    import Game from "./engine/Game.js"
+
+    //Game scenes we are adding to the game
+    import MainScene from "./WallsGame/MainScene.js"
+
+    //Instantiate our scene
+    let mainScene = new MainScene();
+
+    //Add our scene to the game
+    Game.scenes.push(mainScene);
+
+    //Start the game loop
+    Game.start();
+
+  </script>
+</body>
+
+</html>
