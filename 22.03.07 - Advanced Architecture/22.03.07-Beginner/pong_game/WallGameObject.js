@@ -2,7 +2,7 @@ import GameObject from "../engine/GameObject.js"
 import Rectangle from "../engine/Rectangle.js";
 import RectangleDraw from "../engine/RectangleDraw.js";
 
-class RectangleGameObject extends GameObject{
+class WallGameObject extends GameObject{
   constructor(x,y,w,h){
     super();
     this.components.push(new Rectangle(this, x,y,w,h));
@@ -10,4 +10,4 @@ class RectangleGameObject extends GameObject{
   }
 }
 
-export default RectangleGameObject;
+export default WallGameObject;
