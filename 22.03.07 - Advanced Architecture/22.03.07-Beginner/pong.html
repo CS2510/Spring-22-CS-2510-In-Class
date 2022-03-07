@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>My first html</title>
+    <title>Pong Game</title>
     <link href="./style.css" rel="stylesheet">
 </head>
 
@@ -16,7 +16,9 @@
         import Time from "./engine/Time.js"
         import Input from "./engine/Input.js"
 
-        import RectangleGameObject from "./zen_game/RectangleGameObject.js";
+        import RectangleGameObject from "./pong_game/RectangleGameObject.js";
+        import ScoreGameObject from "./pong_game/ScoreGameObject.js";
+        import BallGameObject from "./pong_game/BallGameObject.js"
 
         Input.attach(document);
 
@@ -24,10 +26,17 @@
 
         let gameObjects = []
 
+        //Add the walls
         gameObjects.push(new RectangleGameObject(10, 10, 100, 10));
         gameObjects.push(new RectangleGameObject(10, 10, 10, 100));
         gameObjects.push(new RectangleGameObject(10, 100, 100, 10));
         gameObjects.push(new RectangleGameObject(110, 10, 10, 100));
+
+        //Add the text
+        gameObjects.push(new ScoreGameObject(10, 10, "10pt Arial"));
+
+        //Add the ball
+        gameObjects.push(new BallGameObject(200, 200, 50))
 
         function tick() {
             Input.update();
