@@ -27,4 +27,3 @@ This will allow us to have GameObject to GameObject communication.
 - Import BallGameObject in pong.html
 - Push a new ScoreGameObject to gameObjects in pong.html
 - Push a new BallGameObject to gameObjects in pong.html
-- Added a dynamically-generated favicon to remove favicon error (pong.html).

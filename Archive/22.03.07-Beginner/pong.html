@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pong Game</title>
+    <link href="./style.css" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙂</text></svg>">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+
+    <script type="module">
+        "use strict"
+        import { getCanvas} from "./engine/scripts.js"
+        import Time from "./engine/Time.js"
+        import Input from "./engine/Input.js"
+
+        
+        import Game from "./engine/Game.js"
+        import MainScene from "./pong_game/MainScene.js"
+
+        Input.attach(document);
+
+        let { canvas, ctx } = getCanvas();
+
+        
+        let scene = new MainScene();
+        Game.scenes.push(scene);
+        Game.currentSceneIndex = 0;//Redundant
+
+        
+
+        function tick() {
+            Input.update();
+            update()
+            draw()
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        function update() {
+            Game.scene().update();
+        }
+
+        function draw() {
+            Game.scene().draw(ctx);
+        }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>
