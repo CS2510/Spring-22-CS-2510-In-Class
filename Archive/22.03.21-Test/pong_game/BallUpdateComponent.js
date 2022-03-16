@@ -40,32 +40,24 @@ class BallUpdateComponent extends Component {
       this.velX *= -1;
     if (y - r <= minY + wallWidth)
       this.velY *= -1;
-    if (y + r >= maxY){
+    if (y + r >= maxY) {
       //It went too far
 
       //Check to see if we collide with the paddle
-      if(circle.x < paddleRectangle.x || circle.x > paddleRectangle.x + Constants.paddleWidth)
-      this.parent.markForDelete = true;
-      else{
+      if (circle.x < paddleRectangle.x || circle.x > paddleRectangle.x + Constants.paddleWidth) {
+        this.parent.markForDelete = true;
+        Game.changeScene(0);
+      }
+      else {
         this.velY *= -1;
         score.ticks += 1;
+        this.velY *= 1.1;
+        this.velX *= 1.1;
 
       }
     }
-
-
     circle.x += this.velX * Time.secondsBetweenFrame;
     circle.y += this.velY * Time.secondsBetweenFrame;
-
-
-    this.timePassed += Time.secondsBetweenFrame;
-    if (this.timePassed >= 1) {
-      //Delete my score game object
-      let score = Game.findByType("TextGameObject")[0];
-      //if (score)
-      //  score.markForDelete = true;
-    }
-    //Delete the score
   }
 }
 

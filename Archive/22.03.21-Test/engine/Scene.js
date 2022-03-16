@@ -1,7 +1,11 @@
 class Scene{
   constructor(title){
     this.title = title;
+    //this.restart();
+  }
+  restart(){
     this.gameObjects = [];
+    this.start();
   }
   update(ctx){
     for (let gameObject of this.gameObjects) {

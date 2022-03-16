@@ -8,7 +8,9 @@ import Constants from "./Constants.js"
 class MainScene extends Scene {
   constructor() {
     super("Main Pong Scene");
-
+  }
+  start(){
+    
     //Add the walls
     let startX = Constants.startX;
     let startY = Constants.startY;
