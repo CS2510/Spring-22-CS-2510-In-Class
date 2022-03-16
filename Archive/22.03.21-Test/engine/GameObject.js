@@ -1,6 +1,7 @@
 class GameObject{
   constructor(){
     this.components = [];
+    this.markForDelete = false;
   }
   update(ctx){
     this.components.filter(c=>c.update).forEach(c=>c.update(ctx));

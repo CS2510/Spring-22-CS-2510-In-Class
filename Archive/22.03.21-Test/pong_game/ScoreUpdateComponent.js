@@ -13,7 +13,7 @@ class ScoreUpdateComponent extends Component {
     let text = this.parent.getComponent("Text");
   
     text.text = this.ticks;
-    this.ticks++;
+    //this.ticks++;
   }
 }
 
