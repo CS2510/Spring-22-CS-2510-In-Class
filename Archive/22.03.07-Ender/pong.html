@@ -37,7 +37,6 @@
             Input.update();
             update()
             draw()
-            remove();
             Time.timePassed += Time.secondsBetweenFrame;
         }
 
@@ -47,10 +46,6 @@
 
         function draw() {
             Game.scene().draw(ctx);
-        }
-
-        function remove(){
-            Game.scene().remove();
         }
 
         setInterval(tick, Time.millisecondsBetweenFrames)

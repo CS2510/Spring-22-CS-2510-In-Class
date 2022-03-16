@@ -7,8 +7,7 @@ class BallUpdateComponent extends Component {
     super(parent);
     this.velX = 15;
     this.velY = 25;
-    this.timePassed = 0 // Simple timer for deleting
-
+    
   }
   update() {
 
@@ -17,14 +16,14 @@ class BallUpdateComponent extends Component {
 
     //Get the walls
     let walls = Game.findByType("WallGameObject");
-
+    
     let minX = Number.MAX_SAFE_INTEGER;
     let minY = Number.MAX_SAFE_INTEGER;
     let maxX = Number.MIN_SAFE_INTEGER;
     let maxY = Number.MIN_SAFE_INTEGER;
 
-
-
+    
+     
 
     // for(let wall of walls){
     //   let component = wall.getComponent("Rectangle")
@@ -38,36 +37,26 @@ class BallUpdateComponent extends Component {
     //     maxY = component.y
     // }
 
-    minX = Math.min(...walls.map(w => w.getComponent("Rectangle").x))
-    minY = Math.min(...walls.map(w => w.getComponent("Rectangle").y))
-    maxX = Math.max(...walls.map(w => w.getComponent("Rectangle").x))
-    maxY = Math.max(...walls.map(w => w.getComponent("Rectangle").y))
+    minX = Math.min(...walls.map(w=>w.getComponent("Rectangle").x))
+    minY = Math.min(...walls.map(w=>w.getComponent("Rectangle").y))
+    maxX = Math.max(...walls.map(w=>w.getComponent("Rectangle").x))
+    maxY = Math.max(...walls.map(w=>w.getComponent("Rectangle").y))
 
 
-    console.log("found " + minX + ", " + minY + " " + maxX + ", " + maxY);
+    console.log("found " + minX + ", " + minY + " " + maxX + ", " + maxY );
+    
+    
 
-
-
-
+    
     let x = circle.x;
     let y = circle.y;
 
-    if (x - r <= minX + 10 || x + r >= maxX)
+    if(x - r <= minX + 10 || x + r >= maxX )
       this.velX *= -1;
-    if (y - r <= minY + 10 || y + r >= maxY)
+    if(y -r  <= minY + 10 || y + r >= maxY)
       this.velY *= -1;
     circle.x += this.velX * Time.secondsBetweenFrame;
     circle.y += this.velY * Time.secondsBetweenFrame;
-
-
-    this.timePassed += Time.secondsBetweenFrame;
-    if (this.timePassed >= 1) {
-      //Delete my score game object
-      let score = Game.findByType("TextGameObject")[0];
-      if (score)
-        score.markForDelete = true;
-    }
-    //Delete the score
   }
 }
 
