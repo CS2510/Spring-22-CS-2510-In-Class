@@ -17,6 +17,6 @@ The goal of this code is to setup the adding and removing of game objects. With 
 - The walls, ball, and score now have a transparent border
 - The score is now white, providing more contrast
 - The secondsBetweenFrames in Time is now derived from milliseconds between frames (DRY).
-- The millisecondsBetweenFrames has been lower to 10.
+- The millisecondsBetweenFrames has been lowered to 10.
   
 
