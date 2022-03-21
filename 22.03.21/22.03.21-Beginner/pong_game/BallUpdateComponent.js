@@ -1,16 +1,20 @@
 import Component from "../engine/Component.js"
 import Time from "../engine/Time.js"
 import Game from "../engine/Game.js"
+import Constants from "./Constants.js"
 
 class BallUpdateComponent extends Component {
   constructor(parent) {
     super(parent);
-    this.velX = 15;
-    this.velY = 25;
+    this.velX = 15 * 2;
+    this.velY = 25 * 2;
     this.timePassed = 0 // Simple timer for deleting
 
   }
   update() {
+
+    let wallWidth = Constants.wallWidth;
+    let wallLength = Constants.wallLength;
 
     let circle = this.parent.getComponent("Circle");
     let r = circle.r;
