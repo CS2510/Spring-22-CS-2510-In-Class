@@ -7,7 +7,7 @@ import Constants from "./Constants.js"
 class PaddleUpdateComponent extends Component {
   constructor(parent) {
     super(parent);
-    this.speed = 50;
+    this.speed = 100;
 
   }
   update() {

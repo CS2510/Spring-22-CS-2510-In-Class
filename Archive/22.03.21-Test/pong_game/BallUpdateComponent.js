@@ -2,6 +2,7 @@ import Component from "../engine/Component.js"
 import Time from "../engine/Time.js"
 import Game from "../engine/Game.js"
 import Constants from "./Constants.js"
+import BallGameObject from "./BallGameObject.js"
 
 class BallUpdateComponent extends Component {
   constructor(parent) {
@@ -46,13 +47,21 @@ class BallUpdateComponent extends Component {
       //Check to see if we collide with the paddle
       if (circle.x < paddleRectangle.x || circle.x > paddleRectangle.x + Constants.paddleWidth) {
         this.parent.markForDelete = true;
-        Game.changeScene(0);
+
+        //Check to see if we are the last ball
+        let live = Game.findByType("BallGameObject");
+        if (live.length == 1)
+          Game.changeScene(0);
       }
       else {
         this.velY *= -1;
         score.ticks += 1;
         this.velY *= 1.1;
         this.velX *= 1.1;
+
+        //Add another ball
+        let newBall = new BallGameObject(200, 200, 5);
+        Game.scene().gameObjects.push(newBall);
 
       }
     }

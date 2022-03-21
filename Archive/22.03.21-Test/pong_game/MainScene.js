@@ -25,7 +25,7 @@ class MainScene extends Scene {
     this.gameObjects.push(new ScoreGameObject(100, 30));
 
     //Add the ball
-    this.gameObjects.push(new BallGameObject(200, 200, 20))
+    this.gameObjects.push(new BallGameObject(200, 200, 5))
 
     //Add the paddle
     let paddleWidth = Constants.paddleWidth;
