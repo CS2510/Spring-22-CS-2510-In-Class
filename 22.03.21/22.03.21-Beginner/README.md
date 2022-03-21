@@ -22,6 +22,7 @@ The goal of this code is to setup the adding and removing of game objects. With 
 - The score is now white, providing more contrast
 - The secondsBetweenFrames in Time is now derived from milliseconds between frames (DRY).
 - The millisecondsBetweenFrames has been lowered to 10.
+- Removed unused argument in Circle constructor.
 
   
 
