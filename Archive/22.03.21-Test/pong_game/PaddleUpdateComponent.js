@@ -43,6 +43,11 @@ class PaddleUpdateComponent extends Component {
       return;
     rectangle.x = newX;
 
+    //Check to see if all the balls are gone.
+    let live = Game.findByType("BallGameObject");
+    if (live.length <= 0)
+      Game.changeScene(0);
+
 
     
   }

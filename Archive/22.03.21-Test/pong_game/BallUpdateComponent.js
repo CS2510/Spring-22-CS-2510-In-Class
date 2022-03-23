@@ -47,24 +47,30 @@ class BallUpdateComponent extends Component {
       //Check to see if we collide with the paddle
       if (circle.x < paddleRectangle.x || circle.x > paddleRectangle.x + Constants.paddleWidth) {
         this.parent.markForDelete = true;
+        console.log("Delete " + Math.random())
 
-        //Check to see if we are the last ball
-        let live = Game.findByType("BallGameObject");
-        if (live.length == 1)
-          Game.changeScene(0);
+        // //Check to see if we are the last ball
+        // let live = Game.findByType("BallGameObject");
+        // if (live.length == 1)
+        //   Game.changeScene(0);
       }
       else {
         this.velY *= -1;
-        score.ticks += 1;
+        
         this.velY *= 1.1;
         this.velX *= 1.1;
 
         //Add another ball
         let newBall = new BallGameObject(200, 200, 5);
+        newBall.id = Math.random();
         Game.scene().gameObjects.push(newBall);
+        console.log("Adding ball" + Math.random())
 
       }
     }
+
+    let amount = Game.findByType("BallGameObject").length
+    score.ticks = amount;
     circle.x += this.velX * Time.secondsBetweenFrame;
     circle.y += this.velY * Time.secondsBetweenFrame;
   }
