@@ -55,6 +55,7 @@ class BallUpdateComponent extends Component {
         this.velY *= -1;
         this.velY *= 1.2;
         this.velX *= 1.2;
+        //Game.findByName("Score").getComponent("ScoreUpdateComponent").ticks++;
       }
       else {
         Game.changeScene(0);
@@ -67,7 +68,7 @@ class BallUpdateComponent extends Component {
     this.timePassed += Time.secondsBetweenFrame;
     if (this.timePassed >= 1) {
       //Delete my score game object
-      let score = Game.filterByType("TextGameObject")[0];
+      let score = Game.findByName("Score");
       //if (score)
       //  score.markForDelete = true;
     }

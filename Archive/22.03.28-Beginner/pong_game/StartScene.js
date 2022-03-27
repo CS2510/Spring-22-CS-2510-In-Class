@@ -1,8 +1,5 @@
 import Scene from "../engine/Scene.js"
-import Text from "../engine/Text.js"
-import TextDraw from "../engine/TextDraw.js";
-import Constants from "./Constants.js"
-import StartGameObject from "./StartGameObject.js";
+import TextPrefab from "../engine/TextPrefab.js"
 import StartUpdateComponent from "./StartUpdateComponent.js";
 
 class StartScene extends Scene {
@@ -10,7 +7,7 @@ class StartScene extends Scene {
     super("Main Pong Scene");
   }
   start(){
-   this.gameObjects.push(new StartGameObject(50,50));
+   this.gameObjects.push(new TextPrefab("Welcome", 50,50,"Welcome", "50px sans", "orange", "blue", [new StartUpdateComponent()]));
     
   }
 }
