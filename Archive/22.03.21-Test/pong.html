@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pong Game 2</title>
+    <link href="./style.css" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙂</text></svg>">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+
+    <script type="module">
+        "use strict"
+        import { getCanvas} from "./engine/scripts.js"
+        import Time from "./engine/Time.js"
+        import Input from "./engine/Input.js"
+
+        
+        import Game from "./engine/Game.js"
+        import StartScene from "./pong_game/StartScene.js"
+        import MainScene from "./pong_game/MainScene.js"
+
+        Input.attach(document);
+
+        let { canvas, ctx } = getCanvas();
+
+        
+        let startScene = new StartScene();
+        let mainScene = new MainScene();
+
+        Game.scenes.push(startScene);
+        Game.scenes.push(mainScene);
+
+        Game.changeScene(0);
+
+        
+
+        function tick() {
+            if(Game.nextSceneIndex != -1){
+                //Go through and restart the scene
+                Game.doChangeScene();
+            }
+            Input.update();
+            Game.scene().update(ctx);
+            Game.scene().draw(ctx);
+            Game.scene().remove();
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>

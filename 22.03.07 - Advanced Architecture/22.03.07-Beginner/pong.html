@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pong Game</title>
+    <link href="./style.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙂</text></svg>"><!--https://css-tricks.com/emoji-as-a-favicon/-->
+
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+
+    <script type="module">
+        "use strict"
+        import { getCanvas, ease, bounce } from "./engine/scripts.js"
+        import Time from "./engine/Time.js"
+        import Input from "./engine/Input.js"
+
+        import RectangleGameObject from "./pong_game/WallGameObject.js";
+        import ScoreGameObject from "./pong_game/ScoreGameObject.js";
+        import BallGameObject from "./pong_game/BallGameObject.js"
+
+        Input.attach(document);
+
+        let { canvas, ctx } = getCanvas();
+
+        let gameObjects = []
+
+        //Add the walls
+        let startX = 10;
+        let startY = 10;
+        let wallWidth = 10;
+        let wallLength = 100;
+        gameObjects.push(new RectangleGameObject(startX + wallWidth, startY, wallLength, wallWidth));
+        gameObjects.push(new RectangleGameObject(startX, startY + wallWidth, wallWidth, wallLength));
+        gameObjects.push(new RectangleGameObject(startX + wallWidth, startY + wallLength + wallWidth, wallLength, wallWidth));
+        gameObjects.push(new RectangleGameObject(startX + wallLength + wallWidth, startY + wallWidth, wallWidth, wallLength));
+
+        //Add the text
+        gameObjects.push(new ScoreGameObject(10, 10));
+
+        //Add the ball
+        gameObjects.push(new BallGameObject(200, 200, 50))
+
+        function tick() {
+            Input.update();
+            update()
+            draw()
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        function update() {
+            for (let gameObject of gameObjects) {
+                gameObject.update();
+            }
+        }
+
+        function draw() {
+
+            ctx.fillStyle = "black"
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            //Draw debugging lines to see where the interior of the walls are
+            ctx.strokeStyle = "red";
+            ctx.beginPath()
+            //Left Line
+            ctx.moveTo(startX+wallWidth, 0);
+            ctx.lineTo(startX+wallWidth, 400);
+
+            //Right Line
+            ctx.moveTo(startX+wallWidth+wallLength, 0);
+            ctx.lineTo(startX+wallWidth+wallLength, 400);
+
+            //Top Line
+            ctx.moveTo(0, startY+wallWidth);
+            ctx.lineTo(400, startY+wallWidth);
+
+            //Bottom Line
+            ctx.moveTo(0, startY+wallWidth+wallLength);
+            ctx.lineTo(400, startY+wallWidth+wallLength);
+            
+            ctx.stroke();
+
+
+            for (let gameObject of gameObjects) {
+                gameObject.draw(ctx);
+            }
+        }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>

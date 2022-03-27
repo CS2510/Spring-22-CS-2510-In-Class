@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first html</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+
+    <script type="module">
+        "use strict"
+        import { getCanvas, ease, bounce } from "./engine/scripts.js"
+        import Time from "./engine/Time.js"
+        import Input from "./engine/Input.js"
+
+        import RectangleGameObject from "./zen_game/RectangleGameObject.js";
+
+        Input.attach(document);
+
+        let { canvas, ctx } = getCanvas();
+
+        let gameObjects = []
+
+        gameObjects.push(new RectangleGameObject(10, 10, 100, 10));
+        gameObjects.push(new RectangleGameObject(10, 10, 10, 100));
+        gameObjects.push(new RectangleGameObject(10, 100, 100, 10));
+        gameObjects.push(new RectangleGameObject(110, 10, 10, 100));
+
+        function tick() {
+            Input.update();
+            update()
+            draw()
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        function update() {
+            for (let gameObject of gameObjects) {
+                gameObject.update();
+            }
+        }
+
+        function draw() {
+
+            ctx.fillStyle = "black"
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            for (let gameObject of gameObjects) {
+                gameObject.draw(ctx);
+            }
+        }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>
