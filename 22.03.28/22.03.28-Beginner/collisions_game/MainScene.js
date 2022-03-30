@@ -21,10 +21,35 @@ class MainScene extends Scene {
 
   start() {
 
-    this.gameObjects.push(new PrefabCircle("BiggerCircle", 150, 150, 50+10));
+    let rectangleX = 250;
+    let rectangleY = 250;
+    let rectangleW = 75;
+    let rectangleH = 25;
+
+    this.gameObjects.push(new PrefabCircle("BiggerCircle", 150, 150, 50 + 10));
     this.gameObjects.push(new PrefabCircle("Circle", 150, 150, 50));
-    this.gameObjects.push(new PrefabRectangle("Rectangle", 250, 250, 50, 25));
-    this.gameObjects.push(new PrefabLine("CircleDebugLine", 0, 0, 50, 25));
+
+
+    this.gameObjects.push(new PrefabLine("RectangleLeftBoundary",
+      rectangleX, rectangleY - 30, rectangleX, rectangleY + rectangleH + 30)
+    )
+    this.gameObjects.push(new PrefabLine("RectangleRightBoundary",
+      rectangleX + rectangleW, rectangleY - 30, rectangleX + rectangleW, rectangleY + rectangleH + 30)
+    )
+    this.gameObjects.push(new PrefabLine("RectangleTopBoundary",
+      rectangleX - 30, rectangleY, rectangleX + rectangleW + 30, rectangleY)
+    )
+    this.gameObjects.push(new PrefabLine("RectangleBottomBoundary",
+      rectangleX - 30, rectangleY + rectangleH, rectangleX + rectangleW + 30, rectangleY + rectangleH)
+    )
+
+    this.gameObjects.push(new PrefabRectangle("Rectangle",
+      rectangleX,
+      rectangleY,
+      rectangleW,
+      rectangleH));
+
+
 
     //Add the mouse-controlled point
     this.gameObjects.push(
@@ -42,6 +67,9 @@ class MainScene extends Scene {
     this.gameObjects.push(
       new PrefabRectangle("DynamicRectangle", 0, 0, 50, 50)
         .addComponent(new RectangleUpdateComponent()));
+
+    this.gameObjects.push(new PrefabLine("CircleDebugLine", 0, 0, 50, 25));
+
 
     this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new Controller()));
 

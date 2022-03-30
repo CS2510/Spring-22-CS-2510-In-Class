@@ -9,6 +9,12 @@ class Collider extends Component {
     super(parent);
 
     this.biggerCircleGameObject = Game.findByNameOne("BiggerCircle");
+    this.rectangleBounds = [
+      Game.findByNameOne("RectangleLeftBoundary"),
+      Game.findByNameOne("RectangleRightBoundary"),
+      Game.findByNameOne("RectangleTopBoundary"),
+      Game.findByNameOne("RectangleBottomBoundary"),
+    ];
     
 
     this.collisionCircleGameObject = Game.findByNameOne("Circle");
@@ -29,7 +35,7 @@ class Collider extends Component {
 
     this.collisionCircleDraw = this.collisionCircleGameObject.getComponent("CircleDraw");
     this.collisionRectangleDraw = this.collisionRectangleGameObject.getComponent("RectangleDraw");
-    this.state = "Circle";
+    this.state = "Rectangle";
   }
   update() {
     if(Input.getKeyDown("1")){
@@ -53,6 +59,7 @@ class Collider extends Component {
       this.dynamicCircleGameObject.visible = false;
       this.dynamicRectangleGameObject.visible = false;
       this.biggerCircleGameObject.visible = false;
+      this.rectangleBounds.forEach(i=>i.visible = true)
       
       this.circleDebugLine.x = this.collisionCircle.x;
       this.circleDebugLine.y = this.collisionCircle.y;
@@ -78,6 +85,8 @@ class Collider extends Component {
       this.dynamicCircleGameObject.visible = true;
       this.dynamicRectangleGameObject.visible = false;
       this.biggerCircleGameObject.visible = true;
+      this.rectangleBounds.forEach(i=>i.visible = false)
+      
       
       this.circleDebugLine.x = this.collisionCircle.x;
       this.circleDebugLine.y = this.collisionCircle.y;
@@ -103,11 +112,13 @@ class Collider extends Component {
       this.dynamicCircleGameObject.visible = false;
       this.dynamicRectangleGameObject.visible = true;
       this.biggerCircleGameObject.visible = false;
+      this.rectangleBounds.forEach(i=>i.visible = true)
+      
       
       this.circleDebugLine.x = this.collisionCircle.x;
       this.circleDebugLine.y = this.collisionCircle.y;
-      this.circleDebugLine.x2 = this.dynamicRectangle.x;
-      this.circleDebugLine.y2 = this.dynamicRectangle.y;
+      this.circleDebugLine.x2 = this.dynamicRectangle.x+this.dynamicRectangle.w/2;
+      this.circleDebugLine.y2 = this.dynamicRectangle.y+this.dynamicRectangle.h/2;
 
       if (Collisions.inCollision(this.collisionCircle, this.dynamicRectangle)) {
         this.collisionCircleDraw.strokeStyle = "yellow";
