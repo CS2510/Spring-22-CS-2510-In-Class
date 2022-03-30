@@ -16,6 +16,7 @@ class GameObject{
   addComponent(component){
     this.components.push(component);
     component.parent = this;
+    return this;
   }
 }
 

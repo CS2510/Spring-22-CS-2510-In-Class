@@ -2,13 +2,13 @@ import GameObject from "./GameObject.js"
 import Text from "./Text.js";
 import TextDraw from "./TextDraw.js";
 
-class PrefabTextSmall extends GameObject{
+class PrefabTextLarge extends GameObject{
   constructor(name, x, y, text){
     super(name);
     this.x = x;
     this.y = y;
     this.text = text;
-    this.font = "20px arial";
+    this.font = "50px arial";
 
     this.start();
   }
@@ -18,4 +18,4 @@ class PrefabTextSmall extends GameObject{
   }
 }
 
-export default PrefabTextSmall;
+export default PrefabTextLarge;
