@@ -39,8 +39,15 @@ class Collisions {
         return Collisions.inCollision(two, one);
       }
       //Circle/Circle
+      if(two instanceof Circle){
+        let combinedRadius = one.r + two.r;
+        let distance = Math.sqrt((one.x - two.x)**2+(one.y-two.y)**2);
+        return distance < combinedRadius;
+      }
       //Circle/AAR
-      return Collisions.inCollision(two, one);
+      if (two instanceof Rectangle) {
+        return Collisions.inCollision(two, one);
+      }
     }
   }
 

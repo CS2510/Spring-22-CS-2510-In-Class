@@ -7,21 +7,29 @@ import Collisions from "../engine/Collisions.js";
 class Collider extends Component {
   constructor(parent) {
     super(parent);
+
+    this.biggerCircleGameObject = Game.findByNameOne("BiggerCircle");
+    
+
     this.collisionCircleGameObject = Game.findByNameOne("Circle");
     this.collisionRectangleGameObject = Game.findByNameOne("Rectangle");
     this.circleDebugLineGameObject = Game.findByNameOne("CircleDebugLine");
-    
-    this.collisionPointGameObject = Game.findByNameOne("DynamicPoint");
+
+    this.dynamicPointGameObject = Game.findByNameOne("DynamicPoint");
+    this.dynamicCircleGameObject = Game.findByNameOne("DynamicCircle");
+    this.dynamicRectangleGameObject = Game.findByNameOne("DynamicRectangle");
 
     this.collisionCircle = this.collisionCircleGameObject.getComponent("Circle");
     this.collisionRectangle = this.collisionRectangleGameObject.getComponent("Rectangle");
     this.circleDebugLine = this.circleDebugLineGameObject.getComponent("Line");
     
-    this.collisionPoint = this.collisionPointGameObject.getComponent("Point");
+    this.dynamicPoint = this.dynamicPointGameObject.getComponent("Point");
+    this.dynamicCircle = this.dynamicCircleGameObject.getComponent("Circle");
+    this.dynamicRectangle = this.dynamicRectangleGameObject.getComponent("Rectangle");
 
     this.collisionCircleDraw = this.collisionCircleGameObject.getComponent("CircleDraw");
     this.collisionRectangleDraw = this.collisionRectangleGameObject.getComponent("RectangleDraw");
-    this.state = "Point";
+    this.state = "Circle";
   }
   update() {
     if(Input.getKeyDown("1")){
@@ -39,21 +47,26 @@ class Collider extends Component {
 
 
 
-
+    
     if (this.state == "Point") {
+      this.dynamicPointGameObject.visible = true;
+      this.dynamicCircleGameObject.visible = false;
+      this.dynamicRectangleGameObject.visible = false;
+      this.biggerCircleGameObject.visible = false;
+      
       this.circleDebugLine.x = this.collisionCircle.x;
       this.circleDebugLine.y = this.collisionCircle.y;
-      this.circleDebugLine.x2 = this.collisionPoint.x;
-      this.circleDebugLine.y2 = this.collisionPoint.y;
+      this.circleDebugLine.x2 = this.dynamicPoint.x;
+      this.circleDebugLine.y2 = this.dynamicPoint.y;
 
-      if (Collisions.inCollision(this.collisionCircle, this.collisionPoint)) {
+      if (Collisions.inCollision(this.collisionCircle, this.dynamicPoint)) {
         this.collisionCircleDraw.strokeStyle = "yellow";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
-      if (Collisions.inCollision(this.collisionRectangle, this.collisionPoint)) {
+      if (Collisions.inCollision(this.collisionRectangle, this.dynamicPoint)) {
         this.collisionRectangleDraw.strokeStyle = "yellow";
       }
       else {
@@ -61,19 +74,49 @@ class Collider extends Component {
       }
     }
     if (this.state == "Circle") {
+      this.dynamicPointGameObject.visible = false;
+      this.dynamicCircleGameObject.visible = true;
+      this.dynamicRectangleGameObject.visible = false;
+      this.biggerCircleGameObject.visible = true;
+      
       this.circleDebugLine.x = this.collisionCircle.x;
       this.circleDebugLine.y = this.collisionCircle.y;
-      this.circleDebugLine.x2 = this.collisionPoint.x;
-      this.circleDebugLine.y2 = this.collisionPoint.y;
+      this.circleDebugLine.x2 = this.dynamicCircle.x;
+      this.circleDebugLine.y2 = this.dynamicCircle.y;
 
-      if (Collisions.inCollision(this.collisionCircle, this.collisionPoint)) {
+      if (Collisions.inCollision(this.collisionCircle, this.dynamicCircle)) {
         this.collisionCircleDraw.strokeStyle = "yellow";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
-      if (Collisions.inCollision(this.collisionRectangle, this.collisionPoint)) {
+      if (Collisions.inCollision(this.collisionRectangle, this.dynamicCircle)) {
+        this.collisionRectangleDraw.strokeStyle = "yellow";
+      }
+      else {
+        this.collisionRectangleDraw.strokeStyle = "red";
+      }
+    }
+    if (this.state == "Rectangle") {
+      this.dynamicPointGameObject.visible = false;
+      this.dynamicCircleGameObject.visible = false;
+      this.dynamicRectangleGameObject.visible = true;
+      this.biggerCircleGameObject.visible = false;
+      
+      this.circleDebugLine.x = this.collisionCircle.x;
+      this.circleDebugLine.y = this.collisionCircle.y;
+      this.circleDebugLine.x2 = this.dynamicRectangle.x;
+      this.circleDebugLine.y2 = this.dynamicRectangle.y;
+
+      if (Collisions.inCollision(this.collisionCircle, this.dynamicRectangle)) {
+        this.collisionCircleDraw.strokeStyle = "yellow";
+      }
+      else {
+        this.collisionCircleDraw.strokeStyle = "red";
+      }
+
+      if (Collisions.inCollision(this.collisionRectangle, this.dynamicRectangle)) {
         this.collisionRectangleDraw.strokeStyle = "yellow";
       }
       else {
