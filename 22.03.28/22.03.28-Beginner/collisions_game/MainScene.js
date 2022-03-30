@@ -70,6 +70,13 @@ class MainScene extends Scene {
 
     this.gameObjects.push(new PrefabLine("CircleDebugLine", 0, 0, 50, 25));
 
+    this.gameObjects.push(new PrefabCircle("CircleSeparate1", 0, 0, 5));
+    this.gameObjects.push(new PrefabCircle("CircleSeparate2", 0, 0, 5));
+    this.gameObjects.push(new PrefabCircle("RectangleSeparate1", 0, 0, 5));
+    this.gameObjects.push(new PrefabCircle("RectangleSeparate2", 0, 0, 5));
+    this.gameObjects.push(new PrefabCircle("RectangleSeparate3", 0, 0, 5));
+    this.gameObjects.push(new PrefabCircle("RectangleSeparate4", 0, 0, 5));
+
 
     this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new Controller()));
 
