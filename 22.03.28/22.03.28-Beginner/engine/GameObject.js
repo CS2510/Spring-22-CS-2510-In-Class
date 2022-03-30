@@ -1,7 +1,8 @@
 class GameObject{
-  constructor(){
+  constructor(name = "NO_NAME"){
     this.components = [];
     this.markForDelete = false;
+    this.name = name;
   }
   update(ctx){
     this.components.filter(c=>c.update).forEach(c=>c.update(ctx));
@@ -11,6 +12,10 @@ class GameObject{
   }
   getComponent(componentString){
     return this.components.find(c=>c.constructor.name == componentString);
+  }
+  addComponent(component){
+    this.components.push(component);
+    component.parent = this;
   }
 }
 

@@ -16,11 +16,9 @@ class CollisionPointUpdateComponent extends Component {
     point.y = y;
 
 
-    let collisionPointGameObject = Game.findByType("PointGameObject")[0];
-    let collisionCircleGameObject = Game.findByType("CircleGameObject")[0];
-    let collisionAARGameObject = Game.findByType("AARGameObject")[0];
+    let collisionCircleGameObject = Game.findByNameOne("Circle");
+    let collisionAARGameObject = Game.findByNameOne("Rectangle");
 
-    let collisionPoint = collisionPointGameObject.getComponent("Point");
     let collisionCircle = collisionCircleGameObject.getComponent("Circle");
     let collisionAAR = collisionAARGameObject.getComponent("Rectangle");
 
