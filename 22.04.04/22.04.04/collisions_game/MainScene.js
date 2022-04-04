@@ -14,6 +14,9 @@ import PointUpdateComponent from "./PointUpdateComponent.js";
 import CircleUpdateComponent from "./CircleUpdateComponent.js";
 import RectangleUpdateComponent from "./RectangleUpdateComponent.js";
 
+import Consnants from "./Constants.js"
+import Constants from "./Constants.js";
+
 class MainScene extends Scene {
   constructor() {
     super("Main Pong Scene");
@@ -25,11 +28,6 @@ class MainScene extends Scene {
     let rectangleY = 250;
     let rectangleW = 75;
     let rectangleH = 25;
-
-    
-    this.gameObjects.push(new PrefabCircle("BiggerCircle", 150, 150, 50 + 10));
-    this.gameObjects.push(new PrefabCircle("CollisionCircle", 150, 150, 50));
-
 
     this.gameObjects.push(new PrefabLine("RectangleLeftBoundary",
       rectangleX, rectangleY - 30, rectangleX, rectangleY + rectangleH + 30)
@@ -44,32 +42,12 @@ class MainScene extends Scene {
       rectangleX - 30, rectangleY + rectangleH, rectangleX + rectangleW + 30, rectangleY + rectangleH)
     )
 
-    this.gameObjects.push(new PrefabRectangle("CollisionRectangle",
-      rectangleX,
-      rectangleY,
-      rectangleW,
-      rectangleH));
+    for(let go of Constants){
+      this.gameObjects.push(go.go);
+    }
 
-
-
-    //Add the mouse-controlled point
-    this.gameObjects.push(
-      new PrefabEmpty("DynamicPoint")
-        .addComponent(new Point())
-        .addComponent(new PointDraw(null, "transparent", "magenta"))
-        .addComponent(new PointUpdateComponent()));
-
-    //Add the mouse-controlled Circle
-    this.gameObjects.push(
-      new PrefabCircle("DynamicCircle", 0, 0, 10)
-        .addComponent(new CircleUpdateComponent()));
-
-    //Add the mouse-controlled Rectangle
-    this.gameObjects.push(
-      new PrefabRectangle("DynamicRectangle", 0, 0, 50, 50)
-        .addComponent(new RectangleUpdateComponent()));
-
-    this.gameObjects.push(new PrefabLine("CircleDebugLine", 0, 0, 50, 25));
+    
+    
 
     this.gameObjects.push(new PrefabCircle("CircleSeparate1", 0, 0, 5));
     this.gameObjects.push(new PrefabCircle("CircleSeparate2", 0, 0, 5));
@@ -77,12 +55,6 @@ class MainScene extends Scene {
     this.gameObjects.push(new PrefabCircle("RectangleSeparate2", 0, 0, 5));
     this.gameObjects.push(new PrefabCircle("RectangleSeparate3", 0, 0, 5));
     this.gameObjects.push(new PrefabCircle("RectangleSeparate4", 0, 0, 5));
-
-
-    this.gameObjects.push(new PrefabCircle("InnerCircle", 0, 0, 0));
-    this.gameObjects.push(new PrefabCircle("InnerCircle2", 0, 0, 0));
-
-
 
     this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new Controller()));
 

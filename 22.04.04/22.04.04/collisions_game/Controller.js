@@ -6,6 +6,8 @@ import Collisions from "../engine/Collisions.js";
 import MathPoint from "../engine/math/Point.js"
 import Line from "../engine/Line.js";
 
+import Constants from "./Constants.js"
+
 class Collider extends Component {
   constructor(parent) {
     super(parent);
@@ -26,41 +28,24 @@ class Collider extends Component {
       Game.findByNameOne("RectangleSeparate4"),
     ]
 
-    this.dynamicPointGameObjectVisibility = [true, false, false, false];
-    this.dynamicCircleGameObjectVisibility = [false, true, false, false];
-    this.dynamicRectangleGameObjectVisibility = [false, false, true, true];
-    this.collisionRectangleGameObjectVisibility = [true, false, true, true];
-    this.collisionCircleGameObjectVisibility = [true, true, true, true];
-    this.biggerCircleGameObjectVisibility = [false, true, false, false];
     this.rectangleBoundsVisibility = [true, false, true, true];
     this.separatesVisibility = [false, false, true, false];
-    this.innerCircleGameObjectVisibility = [false, false, false, true];
-    this.innerCircle2GameObjectVisibility = [false, false, false, true];
-    this.circleDebugLineGameObjectVisibility = [true, true, true, false];
-
-
-    this.gameObjectNames = [
-      "CollisionCircle",
-      "CircleDebugLine",
-      "CollisionRectangle",
-      "InnerCircle",
-      "InnerCircle2",
-      "DynamicPoint",
-      "DynamicCircle",
-      "DynamicRectangle",
-      "BiggerCircle",
-    ];
+    
+    this.gameObjectNames = Constants;
 
     this.gameObjects = [];
     for (let gameObjectName of this.gameObjectNames) {
-      let name = gameObjectName[0].toLowerCase() + gameObjectName.substring(1);
-      let go = Game.findByNameOne(gameObjectName);
+      let workingName = gameObjectName.name;
+      let name = workingName[0].toLowerCase() + workingName.substring(1);
+      let go = Game.findByNameOne(workingName);
 
       this[name + "GameObject"] = go;
       this[name] = go.components[0];
 
       let draw = go.components[1];
       this[name + "Draw"] = draw;
+
+      this[name + "GameObjectVisibility"] = gameObjectName.visibility;
     }
 
 
@@ -108,8 +93,9 @@ class Collider extends Component {
 
     //Update visibility
     for (let gameObjectName of this.gameObjectNames) {
-      let name = gameObjectName[0].toLowerCase() + gameObjectName.substring(1);
-      this[name+"GameObject"].visible = this[name + "GameObjectVisibility"][indeces[this.state]];
+      let workingName = gameObjectName.name;
+      let name = workingName[0].toLowerCase() + workingName.substring(1);
+     this[name+"GameObject"].visible = this[name + "GameObjectVisibility"][indeces[this.state]];
     }
     
     this.rectangleBounds.forEach(i => i.visible = this.rectangleBoundsVisibility[indeces[this.state]])
