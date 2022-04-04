@@ -14,7 +14,7 @@ class PrefabLine extends GameObject{
   }
   start(){
     this.components.push(new Line(this, this.x,this.y,this.x2,this.y2));
-    this.components.push(new LineDraw(this, "blue", "transparent"));
+    this.components.push(new LineDraw(this, "gray", "transparent"));
   }
 }
 

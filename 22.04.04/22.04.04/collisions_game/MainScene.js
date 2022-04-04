@@ -42,8 +42,14 @@ class MainScene extends Scene {
       rectangleX - 30, rectangleY + rectangleH, rectangleX + rectangleW + 30, rectangleY + rectangleH)
     )
 
-    for(let go of Constants){
-      this.gameObjects.push(go.go);
+    for(let obj of Constants){
+      
+      this.gameObjects.push(obj.go);
+      if(obj?.colors){
+        obj.go.components[1].fillStyle = obj.colors[0];
+        obj.go.components[1].strokeStyle = obj.colors[1];
+      }
+
     }
 
     

@@ -14,7 +14,7 @@ class PrefabRectangle extends GameObject{
   }
   start(){
     this.components.push(new Rectangle(this, this.x,this.y,this.w,this.h));
-    this.components.push(new RectangleDraw(this, "lightGray", "transparent"));
+    this.components.push(new RectangleDraw(this, "gray", "transparent"));
   }
 }
 
