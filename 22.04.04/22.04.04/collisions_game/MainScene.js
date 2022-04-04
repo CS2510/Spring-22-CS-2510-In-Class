@@ -88,10 +88,17 @@ class MainScene extends Scene {
 
     this.gameObjects.push(new PrefabTextLarge("LargeText", 20, 50, "Collision Game"));
     this.gameObjects.push(new PrefabTextSmall("SmallText", 20, 450, "Move the mouse to test collisions."));
-    this.gameObjects.push(new PrefabTextSmall("Instructions", 20, 500, "Type 1 to switch to a point"));
-    this.gameObjects.push(new PrefabTextSmall("Instructions", 20, 550, "Type 2 to switch to a circle"));
-    this.gameObjects.push(new PrefabTextSmall("Instructions", 20, 600, "Type 3 to switch to a rectangle (separate axis theorem)"));
-    this.gameObjects.push(new PrefabTextSmall("Instructions", 20, 650, "Type 4 to switch to a rectangle (circle approximation)"));
+
+    let instructions = [
+      "a point",
+      "a circle",
+      "a rectangle (separate axis theorem)",
+      "a rectangle (circle approximation)"
+    ]
+    
+    for(let i = 0; i < instructions.length; i++){
+      this.gameObjects.push(new PrefabTextSmall("Instructions", 20, 500 + 50*i, "Type " + (i+1) + " to switch to " + instructions[i]))
+    }
   }
 }
 
