@@ -5,6 +5,18 @@ import MathPoint from "./math/Point.js";
 import MathLine from "./math/Line.js";
 
 class Collisions {
+  static inCollisionForceInflate(one, two){
+    let newOne = one;
+    let newTwo = two;
+
+    if(one instanceof Rectangle && two instanceof Circle)
+    {
+      let radius = two.r;
+      newOne = new Rectangle(null, one.x-radius, one.y-radius, one.w+radius*2, one.h+radius*2);
+      newTwo = new Point(null, two.x, two.y);
+    }
+    return Collisions.inCollision(newOne, newTwo);
+  }
   static inCollisionForceCirclesInner(one, two){
     if(one instanceof Point || two instanceof Point) return false;
     if(one instanceof Circle && two instanceof Circle) return Collisions.inCollision(one, two);

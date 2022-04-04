@@ -35,7 +35,7 @@ class Collider extends Component {
 
     this.gameObjects = [];
     for (let gameObjectName of this.gameObjectNames) {
-      let workingName = gameObjectName.name;
+      let workingName = gameObjectName.go.name;
       let name = workingName[0].toLowerCase() + workingName.substring(1);
       let go = Game.findByNameOne(workingName);
 
@@ -60,7 +60,7 @@ class Collider extends Component {
     ]
 
 
-    this.state = "Rectangle2";
+    this.state = "Circle";
 
     
   }
@@ -93,7 +93,7 @@ class Collider extends Component {
 
     //Update visibility
     for (let gameObjectName of this.gameObjectNames) {
-      let workingName = gameObjectName.name;
+      let workingName = gameObjectName.go.name;
       let name = workingName[0].toLowerCase() + workingName.substring(1);
      this[name+"GameObject"].visible = this[name + "GameObjectVisibility"][indeces[this.state]];
     }
@@ -108,14 +108,14 @@ class Collider extends Component {
       this.circleDebugLine.y2 = this.dynamicPoint.y;
 
       if (Collisions.inCollision(this.collisionCircle, this.dynamicPoint)) {
-        this.collisionCircleDraw.strokeStyle = "yellow";
+        this.collisionCircleDraw.strokeStyle = "green";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
       if (Collisions.inCollision(this.collisionRectangle, this.dynamicPoint)) {
-        this.collisionRectangleDraw.strokeStyle = "yellow";
+        this.collisionRectangleDraw.strokeStyle = "green";
       }
       else {
         this.collisionRectangleDraw.strokeStyle = "red";
@@ -128,17 +128,19 @@ class Collider extends Component {
       this.circleDebugLine.y2 = this.dynamicCircle.y;
 
       if (Collisions.inCollision(this.collisionCircle, this.dynamicCircle)) {
-        this.collisionCircleDraw.strokeStyle = "yellow";
+        this.collisionCircleDraw.strokeStyle = "green";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
-      if (Collisions.inCollision(this.collisionRectangle, this.dynamicCircle)) {
-        this.collisionRectangleDraw.strokeStyle = "yellow";
+      
+
+      if (Collisions.inCollisionForceInflate(this.collisionRectangle2, this.dynamicCircle)) {
+        this.collisionRectangle2Draw.strokeStyle = "green";
       }
       else {
-        this.collisionRectangleDraw.strokeStyle = "red";
+        this.collisionRectangle2Draw.strokeStyle = "red";
       }
     }
     if (this.state == "Rectangle") {
@@ -241,14 +243,14 @@ class Collider extends Component {
       this.rectangleSeparates[3].y = vert4.y;
 
       if (Collisions.inCollision(this.collisionCircle, this.dynamicRectangle)) {
-        this.collisionCircleDraw.strokeStyle = "yellow";
+        this.collisionCircleDraw.strokeStyle = "green";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
       if (Collisions.inCollision(this.collisionRectangle, this.dynamicRectangle)) {
-        this.collisionRectangleDraw.strokeStyle = "yellow";
+        this.collisionRectangleDraw.strokeStyle = "green";
       }
       else {
         this.collisionRectangleDraw.strokeStyle = "red";
@@ -270,22 +272,32 @@ class Collider extends Component {
         this.collisionRectangle.h / 2
       );
 
-
-
-
+      this.innerCircle3.x = this.collisionRectangle2.centerX();
+      this.innerCircle3.y = this.collisionRectangle2.centerY();
+      this.innerCircle3.r = Math.min(
+        this.collisionRectangle2.w / 2,
+        this.collisionRectangle2.h / 2
+      );
 
       if (Collisions.inCollisionForceCirclesInner(this.collisionCircle, this.dynamicRectangle)) {
-        this.collisionCircleDraw.strokeStyle = "yellow";
+        this.collisionCircleDraw.strokeStyle = "green";
       }
       else {
         this.collisionCircleDraw.strokeStyle = "red";
       }
 
       if (Collisions.inCollisionForceCirclesInner(this.collisionRectangle, this.dynamicRectangle)) {
-        this.collisionRectangleDraw.strokeStyle = "yellow";
+        this.collisionRectangleDraw.strokeStyle = "green";
       }
       else {
         this.collisionRectangleDraw.strokeStyle = "red";
+      }
+
+      if (Collisions.inCollisionForceCirclesInner(this.collisionRectangle2, this.dynamicRectangle)) {
+        this.collisionRectangle2Draw.strokeStyle = "green";
+      }
+      else {
+        this.collisionRectangle2Draw.strokeStyle = "red";
       }
     }
 

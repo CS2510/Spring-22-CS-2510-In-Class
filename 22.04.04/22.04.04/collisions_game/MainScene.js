@@ -14,20 +14,20 @@ import PointUpdateComponent from "./PointUpdateComponent.js";
 import CircleUpdateComponent from "./CircleUpdateComponent.js";
 import RectangleUpdateComponent from "./RectangleUpdateComponent.js";
 
-import Consnants from "./Constants.js"
 import Constants from "./Constants.js";
+import Settings from "./Settings.js";
 
 class MainScene extends Scene {
   constructor() {
-    super("Main Pong Scene");
+    super("Collision Test");
   }
 
   start() {
 
-    let rectangleX = 250;
-    let rectangleY = 250;
-    let rectangleW = 75;
-    let rectangleH = 25;
+    let rectangleX = Settings.rectangleX;
+    let rectangleY = Settings.rectangleY;
+    let rectangleW = Settings.rectangleW;
+    let rectangleH = Settings.rectangleH;
 
     this.gameObjects.push(new PrefabLine("RectangleLeftBoundary",
       rectangleX, rectangleY - 30, rectangleX, rectangleY + rectangleH + 30)
@@ -43,16 +43,13 @@ class MainScene extends Scene {
     )
 
     for(let obj of Constants){
-      
       this.gameObjects.push(obj.go);
-      if(obj?.colors){
+      if(obj.colors){
         obj.go.components[1].fillStyle = obj.colors[0];
         obj.go.components[1].strokeStyle = obj.colors[1];
       }
 
     }
-
-    
     
 
     this.gameObjects.push(new PrefabCircle("CircleSeparate1", 0, 0, 5));
@@ -69,7 +66,7 @@ class MainScene extends Scene {
 
     let instructions = [
       "a point",
-      "a circle",
+      "inflate/deflate (circle)",
       "a rectangle (separate axis theorem)",
       "a rectangle (circle approximation)"
     ]
