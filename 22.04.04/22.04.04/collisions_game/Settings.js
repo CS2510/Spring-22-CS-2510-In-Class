@@ -4,4 +4,5 @@ export default {
   rectangleW : 75,
   rectangleH : 25,
   circleRadius: 25,
+  collisionCircleRadius:25,
 }

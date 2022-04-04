@@ -24,22 +24,22 @@ let rectangleH = Settings.rectangleH;
 
 export default [
   {
-    visibility: [false, true, false, false],
-    go: new PrefabCircle("BiggerCircle", 150, 150, 50 + Settings.circleRadius),
+    visibility: [false, true, false, false, false],
+    go: new PrefabCircle("BiggerCircle", 150, 150, Settings.collisionCircleRadius + Settings.circleRadius),
     colors: ["rgba(255,255,255,.5)", "transparent"],
   },
   {
-    visibility: [false, true, false, false],
+    visibility: [false, true, false, false, false],
     go: new PrefabRectangle("BiggerRectangle", rectangleX + 150-Settings.circleRadius, rectangleY + 150-Settings.circleRadius, rectangleW+Settings.circleRadius*2, rectangleW+Settings.circleRadius*2),
     colors: ["rgba(255,255,255,.5)", "transparent"],
   },
   {
-    visibility: [true, true, true, true],
-    go: new PrefabCircle("CollisionCircle", 150, 150, 50),
+    visibility: [true, true, true, true, true],
+    go: new PrefabCircle("CollisionCircle", 150, 150, Settings.collisionCircleRadius),
     colors: ["white", "white"],
   },
   {
-    visibility: [true, false, true, true],
+    visibility: [true, false, true, true, false],
     go: new PrefabRectangle("CollisionRectangle",
       rectangleX,
       rectangleY,
@@ -48,46 +48,81 @@ export default [
     colors: ["white", "white"],
   },
   {
-    visibility: [true, true, true, true],
+    visibility: [true, true, true, true, false],
     go: new PrefabRectangle("CollisionRectangle2", rectangleX + 150, rectangleY + 150, rectangleW, rectangleW),
     colors: ["white", "transparent"]
   },
   {
-    visibility: [true, false, false, false],
+    visibility: [true, false, false, false, false],
     go: new PrefabPoint("DynamicPoint")
       .addComponent(new PointUpdateComponent()),
-    colors: ["white", "white"],
+    colors: ["magenta", "transparent"],
   },
   {
-    visibility: [false, true, false, false],
+    visibility: [false, true, false, false, false],
     go: new PrefabCircle("DynamicCircle", 0, 0, Settings.circleRadius)
       .addComponent(new CircleUpdateComponent()),
     colors: ["magenta", "transparent"],
   },
   {
-    visibility: [false, false, true, true],
+    visibility: [false, false, true, true, true],
     go: new PrefabRectangle("DynamicRectangle", 0, 0, 50, 50)
       .addComponent(new RectangleUpdateComponent()),
     colors: ["magenta", "transparent"],
   },
   {
-    visibility: [true, true, true, false],
+    visibility: [true, true, true, false, false],
     go: new PrefabLine("CircleDebugLine", 0, 0, 50, 25),
     colors: ["blue", "blue"],
   },
   {
-    visibility: [false, false, false, true],
+    visibility: [false, false, false, true, false],
     go: new PrefabCircle("InnerCircle", 0, 0, 0),
     colors: ["rgba(100,100,100,.75)", "transparent"],
   },
   {
-    visibility: [false, false, false, true],
+    visibility: [false, false, false, true, false],
     go: new PrefabCircle("InnerCircle2", 0, 0, 0),
     colors: ["rgba(100,100,100,.75)", "transparent"],
   },
   {
-    visibility: [false, false, false, true],
+    visibility: [false, false, false, true, false],
     go: new PrefabCircle("InnerCircle3", 0, 0, 0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabCircle("CornerCircleUL", 0, 0, 0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabCircle("CornerCircleUR", 0, 0, 0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabCircle("CornerCircleLR", 0, 0, 0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabCircle("CornerCircleLL", 0, 0, 0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabCircle("CircleCenter", 150, 150, 5),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabRectangle("MultiplesRectangle1", 0,0,0,0),
+    colors: ["rgba(100,100,100,.75)", "transparent"],
+  },
+  {
+    visibility: [false, false, false, false, true],
+    go: new PrefabRectangle("MultiplesRectangle2", 0,0,0,0),
     colors: ["rgba(100,100,100,.75)", "transparent"],
   },
 

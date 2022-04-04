@@ -7,6 +7,7 @@ import MathPoint from "../engine/math/Point.js"
 import Line from "../engine/Line.js";
 
 import Constants from "./Constants.js"
+import Settings from "./Settings.js"
 
 class Collider extends Component {
   constructor(parent) {
@@ -60,7 +61,7 @@ class Collider extends Component {
     ]
 
 
-    this.state = "Circle";
+    this.state = "Rectangle3";
 
     
   }
@@ -81,13 +82,18 @@ class Collider extends Component {
       console.log("Changing to 4")
       this.state = "Rectangle2"
     }
+    if (Input.getKeyDown("5")) {
+      console.log("Changing to 5")
+      this.state = "Rectangle3"
+    }
 
    
     let indeces = {
       "Point": 0,
       "Circle": 1,
       "Rectangle": 2,
-      "Rectangle2": 3
+      "Rectangle2": 3,
+      "Rectangle3": 4,
     }
 
 
@@ -119,6 +125,12 @@ class Collider extends Component {
       }
       else {
         this.collisionRectangleDraw.strokeStyle = "red";
+      }
+      if (Collisions.inCollision(this.collisionRectangle2, this.dynamicCircle)) {
+        this.collisionRectangle2Draw.strokeStyle = "green";
+      }
+      else {
+        this.collisionRectangle2Draw.strokeStyle = "red";
       }
     }
     if (this.state == "Circle") {
@@ -255,6 +267,13 @@ class Collider extends Component {
       else {
         this.collisionRectangleDraw.strokeStyle = "red";
       }
+
+      if (Collisions.inCollision(this.collisionRectangle2, this.dynamicRectangle)) {
+        this.collisionRectangle2Draw.strokeStyle = "green";
+      }
+      else {
+        this.collisionRectangle2Draw.strokeStyle = "red";
+      }
     }
     if (this.state == "Rectangle2") {
       let rectangleCenterX = this.dynamicRectangle.centerX();
@@ -299,6 +318,55 @@ class Collider extends Component {
       else {
         this.collisionRectangle2Draw.strokeStyle = "red";
       }
+    }
+    if (this.state == "Rectangle3") {
+      let rectangleCenterX = this.dynamicRectangle.centerX();
+      let rectangleCenterY = this.dynamicRectangle.centerY();
+      let radius = Settings.collisionCircleRadius;
+      let w = this.dynamicRectangle.w/2;
+      let h = this.dynamicRectangle.h/2;
+
+      this.cornerCircleUL.x = rectangleCenterX - w;
+      this.cornerCircleUL.y = rectangleCenterY - h;
+      this.cornerCircleUL.r = radius;
+
+      this.cornerCircleUR.x = rectangleCenterX + w;
+      this.cornerCircleUR.y = rectangleCenterY - h;
+      this.cornerCircleUR.r = radius;
+
+
+      this.cornerCircleLR.x = rectangleCenterX + w;
+      this.cornerCircleLR.y = rectangleCenterY + h;
+      this.cornerCircleLR.r = radius;
+
+
+      this.cornerCircleLL.x = rectangleCenterX - w;
+      this.cornerCircleLL.y = rectangleCenterY + h;
+      this.cornerCircleLL.r = radius;
+
+      this.multiplesRectangle1.x = this.dynamicRectangle.x -w ;
+      this.multiplesRectangle1.y = this.dynamicRectangle.y;
+      this.multiplesRectangle1.w = this.dynamicRectangle.w + w * 2;
+      this.multiplesRectangle1.h = this.dynamicRectangle.h;
+
+      
+      this.multiplesRectangle2.x = this.dynamicRectangle.x;
+      this.multiplesRectangle2.y = this.dynamicRectangle.y - h;
+      this.multiplesRectangle2.w = this.dynamicRectangle.w;
+      this.multiplesRectangle2.h = this.dynamicRectangle.h + h*2;
+
+      
+
+      
+
+      if (Collisions.inCollisionForceMultiples(this.collisionCircle, this.dynamicRectangle)) {
+        this.collisionCircleDraw.strokeStyle = "green";
+      }
+      else {
+        this.collisionCircleDraw.strokeStyle = "red";
+      }
+
+      
     }
 
 

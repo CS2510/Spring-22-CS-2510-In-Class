@@ -5,32 +5,84 @@ import MathPoint from "./math/Point.js";
 import MathLine from "./math/Line.js";
 
 class Collisions {
-  static inCollisionForceInflate(one, two){
+  static inCollisionForceMultiples(one, two) {
+    let newOnes = [];
+    
+    if (one instanceof Circle && two instanceof Rectangle) {
+      let radius = one.r;
+      newOnes.push(
+        new Circle(null,
+          two.x ,
+          two.y ,
+          radius)
+      );
+
+      newOnes.push(
+        new Circle(null,
+          two.x + two.w,
+          two.y,
+          radius)
+      );
+
+      newOnes.push(
+        new Circle(null,
+          two.x + two.w ,
+          two.y + two.h,
+          radius)
+      );
+
+      newOnes.push(
+        new Circle(null,
+          two.x,
+          two.y + two.h,
+          radius)
+      );
+
+      newOnes.push(
+        new Rectangle(null, two.x-two.w/2, two.y, two.w+two.w, two.h)
+      )
+      newOnes.push(
+        new Rectangle(null, two.x, two.y-two.h/2, two.w, two.h+two.h)
+      )
+
+      
+      for(let newOne of newOnes)
+      {
+        if(Collisions.inCollision(newOne, new Point(null, one.x, one.y))){
+          return true;
+        }
+      }
+
+      return false;
+    }
+    else return Collisions.inCollision(one, two);
+
+  }
+  static inCollisionForceInflate(one, two) {
     let newOne = one;
     let newTwo = two;
 
-    if(one instanceof Rectangle && two instanceof Circle)
-    {
+    if (one instanceof Rectangle && two instanceof Circle) {
       let radius = two.r;
-      newOne = new Rectangle(null, one.x-radius, one.y-radius, one.w+radius*2, one.h+radius*2);
+      newOne = new Rectangle(null, one.x - radius, one.y - radius, one.w + radius * 2, one.h + radius * 2);
       newTwo = new Point(null, two.x, two.y);
     }
     return Collisions.inCollision(newOne, newTwo);
   }
-  static inCollisionForceCirclesInner(one, two){
-    if(one instanceof Point || two instanceof Point) return false;
-    if(one instanceof Circle && two instanceof Circle) return Collisions.inCollision(one, two);
+  static inCollisionForceCirclesInner(one, two) {
+    if (one instanceof Point || two instanceof Point) return false;
+    if (one instanceof Circle && two instanceof Circle) return Collisions.inCollision(one, two);
     //Find the circle boundaries
     let newOne = one;
     let newTwo = two;
-    if(newOne instanceof Rectangle){
-      newOne = new Circle(null, one.centerX(), one.centerY(), Math.min(one.w/2, one.h/2))
+    if (newOne instanceof Rectangle) {
+      newOne = new Circle(null, one.centerX(), one.centerY(), Math.min(one.w / 2, one.h / 2))
     }
-    if(newTwo instanceof Rectangle){
-      newTwo = new Circle(null, two.centerX(), two.centerY(), Math.min(two.w/2, two.h/2))
+    if (newTwo instanceof Rectangle) {
+      newTwo = new Circle(null, two.centerX(), two.centerY(), Math.min(two.w / 2, two.h / 2))
     }
     return Collisions.inCollision(newOne, newTwo);
-    
+
   }
   static inCollision(one, two) {
     if (one instanceof Point) {
@@ -64,7 +116,7 @@ class Collisions {
       //AAR/Circle
       if (two instanceof Circle) {
         //Use the separate axis theorem
-        let rectangleCenter = new MathPoint(one.x+one.w/2, one.y+one.h/2);
+        let rectangleCenter = new MathPoint(one.x + one.w / 2, one.y + one.h / 2);
         let circleCenter = new MathPoint(two.x, two.y);
         //Handle the circle
 
@@ -112,9 +164,9 @@ class Collisions {
         let minProject = Math.min(...[projection1, projection2, projection3, projection4]);
         let maxProject = Math.max(...[projection1, projection2, projection3, projection4]);
 
-        
+
         //Now check if we are outside
-        if(maxProject < circleMin || minProject > circleMax) return false;
+        if (maxProject < circleMin || minProject > circleMax) return false;
         return true;
 
 

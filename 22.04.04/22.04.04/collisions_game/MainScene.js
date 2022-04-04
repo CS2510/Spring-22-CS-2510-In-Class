@@ -68,7 +68,8 @@ class MainScene extends Scene {
       "a point",
       "inflate/deflate (circle)",
       "a rectangle (separate axis theorem)",
-      "a rectangle (circle approximation)"
+      "a rectangle (circle approximation)",
+      "a rectangle (4 circles + 2 rectangles)",
     ]
     
     for(let i = 0; i < instructions.length; i++){
