@@ -1,13 +1,10 @@
 import Component from "../engine/Component.js"
-import Time from "../engine/Time.js"
 import Game from "../engine/Game.js"
 import Input from "../engine/Input.js"
 import Collisions from "../engine/Collisions.js";
 
 import MathPoint from "../engine/math/Point.js"
-import MathLine from "../engine/math/Line.js"
 import Line from "../engine/Line.js";
-import Point from "../engine/Point.js";
 
 class Collider extends Component {
   constructor(parent) {
@@ -29,19 +26,33 @@ class Collider extends Component {
       Game.findByNameOne("RectangleSeparate4"),
     ]
 
-    let gameObjectNames = [
+    this.dynamicPointGameObjectVisibility = [true, false, false, false];
+    this.dynamicCircleGameObjectVisibility = [false, true, false, false];
+    this.dynamicRectangleGameObjectVisibility = [false, false, true, true];
+    this.collisionRectangleGameObjectVisibility = [true, false, true, true];
+    this.collisionCircleGameObjectVisibility = [true, true, true, true];
+    this.biggerCircleGameObjectVisibility = [false, true, false, false];
+    this.rectangleBoundsVisibility = [true, false, true, true];
+    this.separatesVisibility = [false, false, true, false];
+    this.innerCircleGameObjectVisibility = [false, false, false, true];
+    this.innerCircle2GameObjectVisibility = [false, false, false, true];
+    this.circleDebugLineGameObjectVisibility = [true, true, true, false];
+
+
+    this.gameObjectNames = [
       "CollisionCircle",
       "CircleDebugLine",
+      "CollisionRectangle",
       "InnerCircle",
       "InnerCircle2",
       "DynamicPoint",
       "DynamicCircle",
       "DynamicRectangle",
-      "CollisionRectangle"
+      "BiggerCircle",
     ];
 
     this.gameObjects = [];
-    for (let gameObjectName of gameObjectNames) {
+    for (let gameObjectName of this.gameObjectNames) {
       let name = gameObjectName[0].toLowerCase() + gameObjectName.substring(1);
       let go = Game.findByNameOne(gameObjectName);
 
@@ -53,7 +64,7 @@ class Collider extends Component {
     }
 
 
-   this.separateCircle1 = this.separates[0].getComponent("Circle");
+    this.separateCircle1 = this.separates[0].getComponent("Circle");
     this.separateCircle2 = this.separates[1].getComponent("Circle");
 
     this.rectangleSeparates = [
@@ -65,6 +76,8 @@ class Collider extends Component {
 
 
     this.state = "Rectangle2";
+
+    
   }
   update() {
     if (Input.getKeyDown("1")) {
@@ -84,16 +97,7 @@ class Collider extends Component {
       this.state = "Rectangle2"
     }
 
-    let pointGameObjectVisibility = [true, false, false, false];
-    let circleGameObjectVisibility = [false, true, false, false];
-    let rectangleGameObjectVisibility = [false, false, true, true];
-    let collisionRectangleGameObjectVisibility = [true, false, true, true];
-    let biggerCircleGameObjectVisibility = [false, true, false, false];
-    let rectangleBoundsVisibility = [true, false, true, true];
-    let separatesVisibility = [false, false, true, false];
-    let innerCircleVisibility = [false, false, false, true];
-    let circleDebugLineGameObjectVisibility = [true, true, true, false];
-
+   
     let indeces = {
       "Point": 0,
       "Circle": 1,
@@ -103,20 +107,13 @@ class Collider extends Component {
 
 
     //Update visibility
-    this.dynamicPointGameObject.visible = pointGameObjectVisibility[indeces[this.state]];
-    this.dynamicCircleGameObject.visible = circleGameObjectVisibility[indeces[this.state]];
-    this.dynamicRectangleGameObject.visible = rectangleGameObjectVisibility[indeces[this.state]];
-    this.collisionRectangleGameObject.visible = collisionRectangleGameObjectVisibility[indeces[this.state]];
-    this.biggerCircleGameObject.visible = biggerCircleGameObjectVisibility[indeces[this.state]];
-    this.innerCircleGameObject.visible = innerCircleVisibility[indeces[this.state]];
-    this.innerCircle2GameObject.visible = innerCircleVisibility[indeces[this.state]];
-    this.circleDebugLineGameObject.visible = circleDebugLineGameObjectVisibility[indeces[this.state]];
-
-    this.rectangleBounds.forEach(i => i.visible = rectangleBoundsVisibility[indeces[this.state]])
-    this.separates.forEach(i => i.visible = separatesVisibility[indeces[this.state]]);
-
-
-
+    for (let gameObjectName of this.gameObjectNames) {
+      let name = gameObjectName[0].toLowerCase() + gameObjectName.substring(1);
+      this[name+"GameObject"].visible = this[name + "GameObjectVisibility"][indeces[this.state]];
+    }
+    
+    this.rectangleBounds.forEach(i => i.visible = this.rectangleBoundsVisibility[indeces[this.state]])
+    this.separates.forEach(i => i.visible = this.separatesVisibility[indeces[this.state]]);
 
     if (this.state == "Point") {
       this.circleDebugLine.x = this.collisionCircle.x;
