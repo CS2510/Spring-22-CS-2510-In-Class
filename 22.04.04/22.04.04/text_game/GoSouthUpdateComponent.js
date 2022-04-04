@@ -17,8 +17,16 @@ class GoSouthUpdateComponent extends Component {
       let mx = Input.getMousePosition().x;
       let my = Input.getMousePosition().y;
 
-      if (mx > rectangle.x && mx < rectangle.x + rectangle.w && my > rectangle.y && my < rectangle.y + rectangle.h)
+      if (mx > rectangle.x && mx < rectangle.x + rectangle.w && my > rectangle.y && my < rectangle.y + rectangle.h) {
+        if(!Game.persist)
+          Game.persist = {};
+        if(!Game.persist.score)
+          Game.persist.score = 1;
+        else{
+          Game.persist.score++;
+        }
         Game.changeScene(1)
+      }
     }
   }
 }
