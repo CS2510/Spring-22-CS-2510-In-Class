@@ -1,30 +1,35 @@
-class Scene{
-  constructor(title, fillColor="black"){
+class Scene {
+  constructor(title, fillColor = "black") {
     this.title = title;
     this.fillColor = fillColor;
   }
-  restart(){
+  restart() {
     this.gameObjects = [];
     this.start();
   }
-  update(ctx){
+  update(ctx) {
     for (let gameObject of this.gameObjects) {
       gameObject.update(ctx);
+    }
   }
-  }
-  draw(ctx){
+  draw(ctx) {
+    //Clear
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    for (let gameObject of this.gameObjects) {
+
+    //Draw Layers
+    for (let i = -2; i <= 2; i++) {
+      for (let gameObject of this.gameObjects.filter(go=>go.layer == i)) {
         gameObject.draw(ctx);
+      }
     }
   }
-  remove(){
-    let toRemove = this.gameObjects.filter(g=>g.markForDelete);
-    if(toRemove.length > 0)
+  remove() {
+    let toRemove = this.gameObjects.filter(g => g.markForDelete);
+    if (toRemove.length > 0)
       console.log(toRemove.length)
-    this.gameObjects = this.gameObjects.filter(g=>!g.markForDelete);
+    this.gameObjects = this.gameObjects.filter(g => !g.markForDelete);
   }
 }
 

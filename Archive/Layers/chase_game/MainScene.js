@@ -19,14 +19,23 @@ class MainScene extends Scene {
 
     this.gameObjects.push(new PrefabEmpty("ControllerGameObject").addComponent(new ControllerComponent()));
 
-    this.gameObjects.push(new PrefabTextSmall("PauseInstructions", 50, 50, "Push (p) to pause."));
+  
+    let pauseInstructions = new PrefabTextSmall("PauseInstructions", 50, 50, "Push (p) to pause.")
+    pauseInstructions.layer = 2
+    this.gameObjects.push(pauseInstructions);
 
-    this.gameObjects.push(new PrefabTextSmall("Ticks", 50, 100, "0"));
+    let ticks = new PrefabTextSmall("Ticks", 50, 100, "0")
+    ticks.layer = 1;
+    this.gameObjects.push(ticks);
 
-    this.gameObjects.push(new PrefabCircle("Player", 200, 200, 25));
+    let player = new PrefabCircle("Player", 200, 200, 25);
+    player.layer = 0;
+    this.gameObjects.push(player);
+
 
     let badRectangle = new PrefabRectangle("BadRectangle", 20, 20, 20, 20)
     badRectangle.getComponent("RectangleDraw").fillStyle = "red";
+    badRectangle.layer = -1;
     this.gameObjects.push(badRectangle);
   }
 }

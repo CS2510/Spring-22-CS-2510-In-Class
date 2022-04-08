@@ -4,6 +4,7 @@ class GameObject{
     this.markForDelete = false;
     this.name = name;
     this.visible = true;
+    this.layer = 0;
   }
   update(ctx){
     this.components.filter(c=>c.update).forEach(c=>c.update(ctx));
