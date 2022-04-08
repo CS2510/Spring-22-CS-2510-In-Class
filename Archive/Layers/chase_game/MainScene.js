@@ -16,6 +16,7 @@ class MainScene extends Scene {
   }
 
   start() {
+    this.fillColor = "black"
 
     this.gameObjects.push(new PrefabEmpty("ControllerGameObject").addComponent(new ControllerComponent()));
 
@@ -34,7 +35,7 @@ class MainScene extends Scene {
 
 
     let badRectangle = new PrefabRectangle("BadRectangle", 20, 20, 20, 20)
-    badRectangle.getComponent("RectangleDraw").fillStyle = "red";
+    badRectangle.getComponent("RectangleDraw").fillStyle = "pink";
     badRectangle.layer = -1;
     this.gameObjects.push(badRectangle);
   }
