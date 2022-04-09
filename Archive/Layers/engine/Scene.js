@@ -56,27 +56,42 @@ class Scene {
     ctx.save();
     ctx.translate(marginX, marginY);
 
-    //Clear
+    //Clear the game drawing space
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(0, 0, newX, newY);
+    ctx.beginPath();
+    ctx.rect(0,0,newX,newY);
+    ctx.clip();
+
+    
 
     //Now adjust for the camera
     ctx.save();
-    let pixelSize = newX/Game.cameraWidth;
-    ctx.translate(pixelSize * -Game.cameraULX, pixelSize * -Game.cameraULY)
+    let pixelSize = newX/Game.cameraWidth*Game.cameraScale; //How large a unit in the world is in pixels. In a small screen, this is a small number. On a large screen, this is a large number
+    console.log(pixelSize)
+    // ctx.translate(pixelSize * )
+    let ulX = Game.cameraX - 200/Game.cameraScale;
+    let ulY = Game.cameraY - 200/Game.cameraScale;
+    ctx.translate(pixelSize * -ulX, pixelSize * -ulY)
     ctx.scale(pixelSize, pixelSize);
     //ctx.translate(-Game.cameraX, -Game.cameraY);
     //We know the size of the display: newX, newY
 
     //Draw Layers
-    for (let i = -2; i <= 2; i++) {
+    for (let i = -2; i <= 0; i++) {
       for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
         gameObject.draw(ctx);
       }
     }
 
-    ctx.restore();
-    ctx.restore();
+    ctx.restore();//Remove camera transforms
+    //Draw the game objects that are not affected by the camera movement
+    for (let i = 1; i <= 2; i++) {
+      for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
+        gameObject.draw(ctx);
+      }
+    }
+    ctx.restore();//Remove aspect ratio transforms
   }
   remove() {
     let toRemove = this.gameObjects.filter(g => g.markForDelete);

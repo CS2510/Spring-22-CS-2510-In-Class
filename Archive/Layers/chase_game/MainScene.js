@@ -14,6 +14,7 @@ class MainScene extends Scene {
   constructor() {
     super("Collision Test");
   }
+  
 
   start() {
     this.fillColor = "black"
@@ -35,9 +36,15 @@ class MainScene extends Scene {
 
 
     let badRectangle = new PrefabRectangle("BadRectangle", -200, -200, 20, 20)
-    badRectangle.getComponent("RectangleDraw").fillStyle = "pink";
+    badRectangle.getComponent("RectangleDraw").fillStyle = "darkred";
     badRectangle.layer = -1;
     this.gameObjects.push(badRectangle);
+
+    //Draw the playing area first
+    let playingAreaRectangle = new PrefabRectangle("PlayingAreaRectangle", -200, -200, 400, 400);
+    playingAreaRectangle.getComponent("RectangleDraw").fillStyle = "lightgray";
+    playingAreaRectangle.layer = -2;
+    this.gameObjects.push(playingAreaRectangle);
   }
 }
 

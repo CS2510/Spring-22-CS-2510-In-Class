@@ -35,8 +35,8 @@ class ControllerComponent extends Component {
       if (this.timeSinceLastCircle > this.timeBetweenCircles) {
         this.timeSinceLastCircle -= this.timeBetweenCircles; //Don't clamp to zero to account for timing errors
 
-        let x = this.circleHalfRange * (Math.random()*2-1);
-        let y = this.circleHalfRange * (Math.random()*2-1);
+        let x = this.circleHalfRange * (Math.random() * 2 - 1);
+        let y = this.circleHalfRange * (Math.random() * 2 - 1);
         let go = new PrefabCircle("Circle", x, y, 20);
         Game.instantiate(go)
         go.getComponent("CircleDraw").fillStyle = "green";
@@ -74,6 +74,20 @@ class ControllerComponent extends Component {
         playerCircle.y + diffY + playerCircle.r < this.circleHalfRange) {
         playerCircle.y += diffY;
       }
+
+      //Adjust the camera's position to follow the player
+      Game.cameraX = playerCircle.x;
+      Game.cameraY = playerCircle.y;
+
+      //Adjust the camera scale
+
+      //Game.cameraScale = 1;
+      if (Input.getKey("1"))
+        Game.cameraScale = 1;
+      if (Input.getKey("2"))
+        Game.cameraScale = 2;
+      if (Input.getKey("3"))
+        Game.cameraScale = .5;
 
       //Look for collisions
       let circles = Game.findByName("Circle");
