@@ -13,6 +13,8 @@ class Scene {
     }
   }
   draw(ctx) {
+    
+
     //Clear
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -20,7 +22,7 @@ class Scene {
 
     //Draw Layers
     for (let i = -2; i <= 2; i++) {
-      for (let gameObject of this.gameObjects.filter(go=>go.layer == i)) {
+      for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
         gameObject.draw(ctx);
       }
     }

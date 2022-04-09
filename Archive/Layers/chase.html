@@ -33,20 +33,32 @@
 
 
     function tick() {
+
+      //Change the scene if a component requested a scene change through
+      //Game.changeScene(x) during the previous tick
       Game.updateScene();
+
+      //Update the input. Spefically, update which keys went down or up in the last frame
       Input.update();
+
+      //Global Pause feature
       if (Input.getKeyDown("p")) {
         console.log("Pausing");
         Game.paused = !Game.paused;
       }
+
+      //Functions that should only run if not paused
       if (!Game.paused) {
-        Input.update();
-        Game.scene().update(ctx);
+         Game.scene().update(ctx); //Update the scene, which updates all the game objects and call their components update() function
       }
-      Game.scene().draw(ctx);
+      //Functions that should run whether or not the game is paused
+      Game.fillBrowser(window, canvas); //Change the canvas size to fit the browser size
+      Game.scene().draw(ctx); //Draw the scene to the screen
+
+      //More functions that should only run if not paused.
       if (!Game.paused) {
-        Game.scene().remove();
-        Time.timePassed += Time.secondsBetweenFrame;
+        Game.scene().remove(); //Remove any game objects whose markForDelete was set to true in the previous frame
+        Time.timePassed += Time.secondsBetweenFrame; //Update the total time elapsed in the game
       }
     }
 
