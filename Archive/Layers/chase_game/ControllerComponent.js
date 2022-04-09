@@ -66,11 +66,12 @@ class ControllerComponent extends Component {
         diffY -= this.playerSpeed * Time.secondsBetweenFrame;
       }
 
+      //Check to see if the player can move in the desired direction
       if (playerCircle.x + diffX > 0 + playerCircle.r &&
-        playerCircle.x + diffX + playerCircle.r < this.circleRange &&
-        playerCircle.y + diffY > playerCircle.r &&
-        playerCircle.y + diffY + playerCircle.r < this.circleRange) {
+        playerCircle.x + diffX + playerCircle.r < this.circleRange)
         playerCircle.x += diffX;
+      if (playerCircle.y + diffY > playerCircle.r &&
+        playerCircle.y + diffY + playerCircle.r < this.circleRange) {
         playerCircle.y += diffY;
       }
 

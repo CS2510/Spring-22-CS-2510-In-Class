@@ -52,7 +52,7 @@
          Game.scene().update(ctx); //Update the scene, which updates all the game objects and call their components update() function
       }
       //Functions that should run whether or not the game is paused
-      Game.fillBrowser(window, canvas); //Change the canvas size to fit the browser size
+      // Game.fillBrowser(window, ctx); //Change the canvas size to fit the browser size
       Game.scene().draw(ctx); //Draw the scene to the screen
 
       //More functions that should only run if not paused.
