@@ -19,7 +19,7 @@ class ControllerComponent extends Component {
     this.timeSinceLastCircle = 1;
 
     this.timeBetweenCircles = 1;
-    this.circleRange = 400;
+    this.circleHalfRange = 200;
 
     this.playing = 0;
     this.dying = 1;
@@ -35,8 +35,8 @@ class ControllerComponent extends Component {
       if (this.timeSinceLastCircle > this.timeBetweenCircles) {
         this.timeSinceLastCircle -= this.timeBetweenCircles; //Don't clamp to zero to account for timing errors
 
-        let x = this.circleRange * Math.random();
-        let y = this.circleRange * Math.random();
+        let x = this.circleHalfRange * (Math.random()*2-1);
+        let y = this.circleHalfRange * (Math.random()*2-1);
         let go = new PrefabCircle("Circle", x, y, 20);
         Game.instantiate(go)
         go.getComponent("CircleDraw").fillStyle = "green";
@@ -67,11 +67,11 @@ class ControllerComponent extends Component {
       }
 
       //Check to see if the player can move in the desired direction
-      if (playerCircle.x + diffX > 0 + playerCircle.r &&
-        playerCircle.x + diffX + playerCircle.r < this.circleRange)
+      if (playerCircle.x + diffX > -this.circleHalfRange + playerCircle.r &&
+        playerCircle.x + diffX + playerCircle.r < this.circleHalfRange)
         playerCircle.x += diffX;
-      if (playerCircle.y + diffY > playerCircle.r &&
-        playerCircle.y + diffY + playerCircle.r < this.circleRange) {
+      if (playerCircle.y + diffY > -this.circleHalfRange + playerCircle.r &&
+        playerCircle.y + diffY + playerCircle.r < this.circleHalfRange) {
         playerCircle.y += diffY;
       }
 
@@ -100,8 +100,8 @@ class ControllerComponent extends Component {
       // diffX = offsetToPlayer.x * Time.secondsBetweenFrame *this.badRectangleSpeed;
       // diffY = offsetToPlayer.y * Time.secondsBetweenFrame *this.badRectangleSpeed;
 
-      badRectangle.x += diffX;
-      badRectangle.y += diffY;
+      // badRectangle.x += diffX;
+      // badRectangle.y += diffY;
 
       this.badRectangleSpeed += Time.secondsBetweenFrame;
 

@@ -50,11 +50,7 @@ class Scene {
       marginX = (ctx.canvas.width - newX)/2;
     }
 
-    // ctx.strokeStyle = "green";
-    // ctx.lineWidth = 10;
-    // ctx.beginPath();
-    // ctx.rect(marginX, marginY, newX, newY);
-    // ctx.stroke();
+  
 
     //Transform to account for the margins
     ctx.save();
@@ -64,6 +60,13 @@ class Scene {
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(0, 0, newX, newY);
 
+    //Now adjust for the camera
+    ctx.save();
+    let pixelSize = newX/Game.cameraWidth;
+    ctx.translate(pixelSize * -Game.cameraULX, pixelSize * -Game.cameraULY)
+    ctx.scale(pixelSize, pixelSize);
+    //ctx.translate(-Game.cameraX, -Game.cameraY);
+    //We know the size of the display: newX, newY
 
     //Draw Layers
     for (let i = -2; i <= 2; i++) {
@@ -72,6 +75,7 @@ class Scene {
       }
     }
 
+    ctx.restore();
     ctx.restore();
   }
   remove() {

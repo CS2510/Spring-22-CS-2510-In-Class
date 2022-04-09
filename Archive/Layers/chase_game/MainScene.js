@@ -29,12 +29,12 @@ class MainScene extends Scene {
     ticks.layer = 1;
     this.gameObjects.push(ticks);
 
-    let player = new PrefabCircle("Player", 200, 200, 25);
+    let player = new PrefabCircle("Player", 0, 0, 25);
     player.layer = 0;
     this.gameObjects.push(player);
 
 
-    let badRectangle = new PrefabRectangle("BadRectangle", 20, 20, 20, 20)
+    let badRectangle = new PrefabRectangle("BadRectangle", -200, -200, 20, 20)
     badRectangle.getComponent("RectangleDraw").fillStyle = "pink";
     badRectangle.layer = -1;
     this.gameObjects.push(badRectangle);

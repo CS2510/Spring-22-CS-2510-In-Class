@@ -31,6 +31,13 @@
     Game.scenes.push(scene);
     Game.changeScene(0)
 
+    //Setup the camera
+    Game.cameraX = 0;
+    Game.cameraY = 0;
+    Game.cameraWidth = 400;
+    Game.cameraULX = -200;
+    Game.cameraULY = -200;
+
 
     function tick() {
 
@@ -52,8 +59,10 @@
          Game.scene().update(ctx); //Update the scene, which updates all the game objects and call their components update() function
       }
       //Functions that should run whether or not the game is paused
-      // Game.fillBrowser(window, ctx); //Change the canvas size to fit the browser size
+      
+      //Setup the game camera
       Game.scene().draw(ctx); //Draw the scene to the screen
+      
 
       //More functions that should only run if not paused.
       if (!Game.paused) {
