@@ -76,8 +76,8 @@ class ControllerComponent extends Component {
       }
 
       //Adjust the camera's position to follow the player
-      Game.cameraX = playerCircle.x;
-      Game.cameraY = playerCircle.y;
+      Game.cameraX = Math.min(100, Math.max(-100, playerCircle.x));
+      Game.cameraY = Math.min(100, Math.max(-100,playerCircle.y));
 
       //Adjust the camera scale
 
