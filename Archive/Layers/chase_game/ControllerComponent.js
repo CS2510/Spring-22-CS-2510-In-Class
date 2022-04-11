@@ -38,6 +38,7 @@ class ControllerComponent extends Component {
         let x = this.circleHalfRange * (Math.random() * 2 - 1);
         let y = this.circleHalfRange * (Math.random() * 2 - 1);
         let go = new PrefabCircle("Circle", x, y, 20);
+        go.layer = -2;
         Game.instantiate(go)
         go.getComponent("CircleDraw").fillStyle = "green";
 
