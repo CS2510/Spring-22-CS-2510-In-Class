@@ -38,6 +38,7 @@ class ControllerComponent extends Component {
         let x = this.circleHalfRange * (Math.random() * 2 - 1);
         let y = this.circleHalfRange * (Math.random() * 2 - 1);
         let go = new PrefabCircle("Circle", x, y, 20);
+        go.layer = -2;
         Game.instantiate(go)
         go.getComponent("CircleDraw").fillStyle = "green";
 
@@ -46,7 +47,9 @@ class ControllerComponent extends Component {
 
       let ticksGameObject = Game.findByNameOne("Ticks");
       let ticks = ticksGameObject.getComponent("Text");
-      ticks.text = parseInt(ticks.text) + 1;
+      let time = parseFloat(ticks.text) + Time.secondsBetweenFrame;
+      time = Math.ceil(time * 100) / 100;
+      ticks.text = time;
 
       let playerGameObject = Game.findByNameOne("Player");
       let playerCircle = playerGameObject.getComponent("Circle");
@@ -114,8 +117,8 @@ class ControllerComponent extends Component {
       // diffX = offsetToPlayer.x * Time.secondsBetweenFrame *this.badRectangleSpeed;
       // diffY = offsetToPlayer.y * Time.secondsBetweenFrame *this.badRectangleSpeed;
 
-      // badRectangle.x += diffX;
-      // badRectangle.y += diffY;
+      badRectangle.x += diffX;
+      badRectangle.y += diffY;
 
       this.badRectangleSpeed += Time.secondsBetweenFrame;
 
@@ -133,6 +136,7 @@ class ControllerComponent extends Component {
         Game.findByNameOne("Circle").markForDelete = true;
       }
       this.dyingTime += Time.secondsBetweenFrame;
+      console.log(this.dyingTime);
       if (this.dyingTime > 3) {
 
         Game.changeScene(0);

@@ -9,42 +9,34 @@ import ControllerComponent from "./ControllerComponent.js"
 
 import Point from "../engine/Point.js";
 import PointDraw from "../engine/PointDraw.js";
+import GameObjectList from "./GameObjectList.js";
 
 class MainScene extends Scene {
   constructor() {
     super("Collision Test");
   }
-  
+
 
   start() {
     this.fillColor = "black"
 
-    this.gameObjects.push(new PrefabEmpty("ControllerGameObject").addComponent(new ControllerComponent()));
-
-  
-    let pauseInstructions = new PrefabTextSmall("PauseInstructions", 50, 50, "Push (p) to pause.")
-    pauseInstructions.layer = 2
-    this.gameObjects.push(pauseInstructions);
-
-    let ticks = new PrefabTextSmall("Ticks", 50, 100, "0")
-    ticks.layer = 1;
-    this.gameObjects.push(ticks);
+    for (let gameObject of GameObjectList) {
+      this.gameObjects.push(gameObject);
+    }
 
     let player = new PrefabCircle("Player", 0, 0, 25);
     player.layer = 0;
     this.gameObjects.push(player);
-
 
     let badRectangle = new PrefabRectangle("BadRectangle", -200, -200, 20, 20)
     badRectangle.getComponent("RectangleDraw").fillStyle = "darkred";
     badRectangle.layer = -1;
     this.gameObjects.push(badRectangle);
 
-    //Draw the playing area first
-    let playingAreaRectangle = new PrefabRectangle("PlayingAreaRectangle", -200, -200, 400, 400);
-    playingAreaRectangle.getComponent("RectangleDraw").fillStyle = "lightgray";
-    playingAreaRectangle.layer = -2;
-    this.gameObjects.push(playingAreaRectangle);
+    this.gameObjects.push(new PrefabEmpty("ControllerGameObject").addComponent(new ControllerComponent()));
+
+
+
   }
 }
 
