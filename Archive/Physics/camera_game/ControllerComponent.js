@@ -31,6 +31,8 @@ class ControllerComponent extends Component {
       Game.changeScene(3);
     if(Input.getKeyDown("5"))
       Game.changeScene(4);
+    if(Input.getKeyDown("6"))
+      Game.changeScene(5);
 
       let playerGameObject = Game.findByNameOne("Player");
       let playerCircle = playerGameObject.getComponent("Circle");

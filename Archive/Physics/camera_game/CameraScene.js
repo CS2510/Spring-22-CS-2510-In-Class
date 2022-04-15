@@ -56,9 +56,15 @@ class CameraScene extends Scene {
       gameObject.draw(ctx);
     }
   }
-  clear(ctx) {//Clear the game drawing space
+  clearCanvas(ctx){
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  }
+  drawBackground(ctx, aspectRatio) {//Clear the game drawing space
+    var width = aspectRatio?.newX || ctx.canvas.width;
+    var height = aspectRatio?.newY || ctx.canvas.height;
     ctx.fillStyle = this.fillColor;
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillRect(0, 0, width, height);
   }
   resizeCanvas(ctx) {
     let width = window.innerWidth;
@@ -69,35 +75,19 @@ class CameraScene extends Scene {
   }
   aspectRatio(ctx) {
     //Fill with a generic color. If the aspect ratio does not fill the browser exactly, then this is to color of the bars that will be displayed.
-    ctx.fillStyle = "gray";
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    // ctx.fillStyle = "gray";
+    // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    //Compensate for aspect ratio
-    let currentAspectRatio = ctx.canvas.width / ctx.canvas.height;
-
-    //Variables for the new drawing space
-    let newX = ctx.canvas.width;
-    let newY = ctx.canvas.height;
-
-
-    if (Game.aspectRatio > currentAspectRatio) {
-      //Shrink in Y
-      newY = ctx.canvas.width / Game.aspectRatio;
-
-    }
-    else //if Game.aspectRatio <= currentaspectRatio
-    {
-      //Shrink in X
-      newX = ctx.canvas.height * Game.aspectRatio;
-
-    }
+    let aspectRatio = this.calculateAspectRatio(ctx);
+    return aspectRatio;
 
     //Clear the game drawing space
-    ctx.fillStyle = this.fillColor;
-    ctx.fillRect(0, 0, newX, newY);
+    // ctx.fillStyle = this.fillColor;
+    // ctx.fillRect(0, 0, aspectRatio.newX, aspectRatio.newY);
+
 
   }
-  centeredAspectRatio(ctx){
+  calculateAspectRatio(ctx){
     //Compensate for aspect ratio
     let currentAspectRatio = ctx.canvas.width / ctx.canvas.height;
 
@@ -118,16 +108,26 @@ class CameraScene extends Scene {
       newX = ctx.canvas.height * Game.aspectRatio;
       marginX = (ctx.canvas.width - newX)/2;
     }
-
-  
-
+    return {
+      newX,
+      newY,
+      marginX,
+      marginY,
+    }
+  }
+  centerAspectRatio(ctx, aspectRatio){
     //Transform to account for the margins
     ctx.save();
-    ctx.translate(marginX, marginY);
+    ctx.translate(aspectRatio.marginX, aspectRatio.marginY);
 
      //Clear the game drawing space
-     ctx.fillStyle = this.fillColor;
-     ctx.fillRect(0, 0, newX, newY);
+    //  ctx.fillStyle = this.fillColor;
+    //  ctx.fillRect(0, 0, aspectRatio.newX, aspectRatio.newY);
+  }
+  clip(ctx, aspectRatio){
+    ctx.beginPath();
+    ctx.rect(0,0,aspectRatio.newX, aspectRatio.newY)
+    ctx.clip()
   }
 }
 

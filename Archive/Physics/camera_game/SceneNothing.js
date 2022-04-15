@@ -18,7 +18,8 @@ class SceneNothing extends CameraScene {
   
   draw(ctx) {
     
-    this.clear(ctx);
+    this.clearCanvas(ctx);
+    this.drawBackground(ctx);
 
     this.drawEverything(ctx);
 

@@ -22,8 +22,13 @@ class ClipScene extends CameraScene {
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)
+    this.clearCanvas(ctx);
 
-    this.centeredAspectRatio(ctx)
+
+    let aspectRatio = this.aspectRatio(ctx)
+    this.centerAspectRatio(ctx,aspectRatio);
+    this.drawBackground(ctx,aspectRatio);
+    this.clip(ctx, aspectRatio);
 
     this.drawEverything(ctx);
 

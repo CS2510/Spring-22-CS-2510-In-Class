@@ -21,10 +21,9 @@ class ResizeCanvas extends CameraScene {
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)
+    this.clearCanvas(ctx);  
 
-    
-
-    this.clear(ctx);
+    this.drawBackground(ctx);
     this.drawEverything(ctx);
 
     

@@ -22,8 +22,9 @@ class AspectRatio extends CameraScene {
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)
-
-    this.aspectRatio(ctx)
+    this.clearCanvas(ctx);
+    let aspectRatio = this.aspectRatio(ctx)
+    this.drawBackground(ctx, aspectRatio);
 
     this.drawEverything(ctx);
 
