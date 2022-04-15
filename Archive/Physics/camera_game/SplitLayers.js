@@ -11,13 +11,15 @@ import Game from "../engine/Game.js"
 import Point from "../engine/Point.js";
 import PointDraw from "../engine/PointDraw.js";
 
-class SceneEverything extends CameraScene {
+
+class SplitLayers extends CameraScene {
   constructor() {
     super();
   }
-
+  
   draw(ctx) {
-
+    
+   
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)
@@ -46,7 +48,8 @@ class SceneEverything extends CameraScene {
     //Draw the game objects that are not affected by the camera movement
     this.drawUI(ctx)
     ctx.restore();//Remove aspect ratio transforms
+    
   }
 }
 
-export default SceneEverything;
+export default SplitLayers;

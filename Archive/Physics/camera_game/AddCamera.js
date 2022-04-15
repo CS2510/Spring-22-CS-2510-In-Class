@@ -11,27 +11,25 @@ import Game from "../engine/Game.js"
 import Point from "../engine/Point.js";
 import PointDraw from "../engine/PointDraw.js";
 
-class SceneEverything extends CameraScene {
+
+class AddCamera extends CameraScene {
   constructor() {
     super();
   }
-
+  
   draw(ctx) {
-
+    
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)
-    this.clearCanvas(ctx)
+    this.clearCanvas(ctx);
 
-    let aspectRatio = this.aspectRatio(ctx);
 
-    this.centerAspectRatio(ctx, aspectRatio);
-    this.drawBackground(ctx, aspectRatio);
+    let aspectRatio = this.aspectRatio(ctx)
+    this.centerAspectRatio(ctx,aspectRatio);
+    this.drawBackground(ctx,aspectRatio);
     this.clip(ctx, aspectRatio);
 
-
-
-    //Now adjust for the camera
     ctx.save();
     let pixelSize = this.getPixelSize(aspectRatio);
     let cameraUpperLeft = this.getCameraUpperLeft();
@@ -40,13 +38,10 @@ class SceneEverything extends CameraScene {
     //ctx.translate(-Game.cameraX, -Game.cameraY);
     //We know the size of the display: newX, newY
 
-    this.drawWorldSpace(ctx);
+    this.drawEverything(ctx);
 
-    ctx.restore();//Remove camera transforms
-    //Draw the game objects that are not affected by the camera movement
-    this.drawUI(ctx)
-    ctx.restore();//Remove aspect ratio transforms
+    
   }
 }
 
-export default SceneEverything;
+export default AddCamera;

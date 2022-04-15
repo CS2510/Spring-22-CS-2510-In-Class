@@ -24,6 +24,8 @@ class CameraScene extends Scene {
       "Aspect Ratio", 
       "CenteredAspectRatio",
       "Clip Scene",
+      "Add Camera",
+      "Split Layers",
       "Everything",
     ];
 
@@ -74,18 +76,8 @@ class CameraScene extends Scene {
     ctx.canvas.height = height;
   }
   aspectRatio(ctx) {
-    //Fill with a generic color. If the aspect ratio does not fill the browser exactly, then this is to color of the bars that will be displayed.
-    // ctx.fillStyle = "gray";
-    // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
     let aspectRatio = this.calculateAspectRatio(ctx);
     return aspectRatio;
-
-    //Clear the game drawing space
-    // ctx.fillStyle = this.fillColor;
-    // ctx.fillRect(0, 0, aspectRatio.newX, aspectRatio.newY);
-
-
   }
   calculateAspectRatio(ctx){
     //Compensate for aspect ratio
@@ -119,15 +111,39 @@ class CameraScene extends Scene {
     //Transform to account for the margins
     ctx.save();
     ctx.translate(aspectRatio.marginX, aspectRatio.marginY);
-
-     //Clear the game drawing space
-    //  ctx.fillStyle = this.fillColor;
-    //  ctx.fillRect(0, 0, aspectRatio.newX, aspectRatio.newY);
   }
   clip(ctx, aspectRatio){
     ctx.beginPath();
     ctx.rect(0,0,aspectRatio.newX, aspectRatio.newY)
     ctx.clip()
+  }
+  getPixelSize(aspectRatio){
+    let pixelSize = aspectRatio.newX / Game.cameraWidth * Game.cameraScale; //How large a unit in the world is in pixels. In a small screen, this is a small number. On a large screen, this is a large number
+    return pixelSize;
+  }
+  getCameraUpperLeft(){
+    let ulX = Game.cameraX - (Game.cameraWidth / 2) / Game.cameraScale;
+    let ulY = Game.cameraY - (Game.cameraWidth / 2) / Game.cameraScale;
+    return {ulX, ulY};
+  }
+  addCamera(ctx, pixelSize, cameraUpperLeft){
+    ctx.translate(pixelSize * -cameraUpperLeft.ulX, pixelSize * -cameraUpperLeft.ulY)
+    ctx.scale(pixelSize, pixelSize);
+  }
+  drawWorldSpace(ctx){
+    //Draw Layers
+    for (let i = -2; i <= 0; i++) {
+      for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
+        gameObject.draw(ctx);
+      }
+    }
+  }
+  drawUI(ctx){
+    for (let i = 1; i <= 2; i++) {
+      for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
+        gameObject.draw(ctx);
+      }
+    }
   }
 }
 

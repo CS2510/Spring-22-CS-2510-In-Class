@@ -25,6 +25,8 @@
     import AspectRatio from "./camera_game/AspectRatio.js"
     import CenteredAspectRatio from "./camera_game/CenteredAspectRatio.js"
     import ClipScene from "./camera_game/ClipScene.js"
+    import AddCamera from "./camera_game/AddCamera.js"
+    import SplitLayers from "./camera_game/SplitLayers.js"
     import SceneEverything from "./camera_game/SceneEverything.js"
 
     Input.attach(document);
@@ -37,6 +39,8 @@
     Game.scenes.push(new AspectRatio());
     Game.scenes.push(new CenteredAspectRatio());
     Game.scenes.push(new ClipScene());
+    Game.scenes.push(new AddCamera());
+    Game.scenes.push(new SplitLayers());
     Game.scenes.push(new SceneEverything());
     Game.changeScene(0)
 
