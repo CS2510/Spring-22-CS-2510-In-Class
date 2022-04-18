@@ -79,7 +79,7 @@ class ControllerComponent extends Component {
     }
 
 
-    //Update the transition text
+    //Get values for tracing and picking
     let transitionTextGameObject = Game.findByNameOne("TransitionText");
     let transitionText = transitionTextGameObject.getComponent("Text");
     
@@ -87,37 +87,14 @@ class ControllerComponent extends Component {
     let aspectRatio = currentScene.aspectRatio(ctx);
     let pixelSize = currentScene.getPixelSize(aspectRatio);
     let cameraUpperLeft = currentScene.getCameraUpperLeft(ctx);
-    
-    let wx = playerCircle.x;
-    let wy = playerCircle.y;
-
-    //Move to camera space
-    let cx = wx - Game.cameraX;
-    let cy = wy - Game.cameraY;
-
-    cx *= Game.cameraScale;
-    cy *= Game.cameraScale;
-
-    
     let cameraHalfWidth = Game.cameraWidth/2;
     let cameraHalfHeight = Game.cameraWidth/2;
-
-
-    let clipX = cx/(cameraHalfWidth)
-    let clipY = cy/(cameraHalfHeight)
-
-    //Should be in -1 to 1
-    //Find half width of screen width
     let halfScreenWidth = aspectRatio.newX/2;
     let halfScreenHeight = aspectRatio.newY/2;
-
-    let screenX = clipX * halfScreenWidth + halfScreenWidth;
-    let screenY = clipY * halfScreenHeight + halfScreenHeight;
-
     
-
-    transitionText.x = screenX;
-    transitionText.y = screenY;
+    //Do the actual tracing
+    transitionText.x = 0;
+    transitionText.y = 0;
 
 
     //Now print the mouse position
@@ -125,31 +102,6 @@ class ControllerComponent extends Component {
     let toPrint = "";
     toPrint += "Browser Position " + this.toString(screenPosition);
 
-
-    let clipPosition = this.clonePoint(screenPosition);
-    clipPosition.x -= aspectRatio.marginX;
-    clipPosition.y -= aspectRatio.marginY;
-    toPrint += " Clip Position " + this.toString(clipPosition);
-
-    let cameraPosition = this.clonePoint(clipPosition);
-    cameraPosition.x -= halfScreenWidth;
-    cameraPosition.y -= halfScreenHeight;
-    cameraPosition.x /= halfScreenWidth;
-    cameraPosition.y /= halfScreenHeight;
-    cameraPosition.x *= cameraHalfWidth;
-    cameraPosition.y *= cameraHalfHeight;
-    cameraPosition.x /= Game.cameraScale;
-    cameraPosition.y /= Game.cameraScale;
-    cameraPosition.x -= Game.cameraX;
-    cameraPosition.y -= Game.cameraY;
-
-    // let worldPosition = this.clonePoint(clipPosition);
-    // worldPosition.x += pixelSize * cameraUpperLeft.ulX;
-    // worldPosition.y += pixelSize * cameraUpperLeft.ulY;
-
-    // worldPosition.x /= Game.cameraScale;
-
-    toPrint += " World Position " + this.toString(cameraPosition);
     console.log(toPrint);
 
 
