@@ -116,34 +116,9 @@ class ControllerComponent extends Component {
 
     
 
-    let camULX= currentScene.getCameraUpperLeft().x;
-    let camULY= currentScene.getCameraUpperLeft().y;
-    let camLRX= currentScene.getCameraLowerRight().x;
-    let camLRY= currentScene.getCameraLowerRight().y;
-
-    // let cameraUpperLeft = currentScene.getCameraUpperLeft(ctx);
-    // let pixelSize = currentScene.getPixelSize(aspectRatio);
-
-    // let clipWidth = aspectRatio.newX;
-    // let clipHeight = aspectRatio.newY;
-
-    // let offsetX = pixelSize * -cameraUpperLeft.ulX;
-    // let offsetY = pixelSize * -cameraUpperLeft.ulY
-
-    // let worldSpaceX = playerCircle.x;
-    // let worldSpaceY = playerCircle.y;
-
-    // let cameraSpaceX = worldSpaceX * pixelSize;
-    // let cameraSpaceY = worldSpaceY * pixelSize;
-
-    // transitionText.x = cameraSpaceX;
-    // transitionText.y = cameraSpaceY;
-
     transitionText.x = screenX;
     transitionText.y = screenY;
 
-    // transitionText.x += offsetX;
-    // transitionText.y += offsetY;
 
     //Now print the mouse position
     let mousePosition = Input.getMousePosition();
@@ -155,13 +130,25 @@ class ControllerComponent extends Component {
     clipPosition.y -= aspectRatio.marginY;
     toPrint += " Clip Position " + this.toString(clipPosition);
 
+    let cameraPosition = this.clonePoint(clipPosition);
+    cameraPosition.x -= halfScreenWidth;
+    cameraPosition.y -= halfScreenHeight;
+    cameraPosition.x /= halfScreenWidth;
+    cameraPosition.y /= halfScreenHeight;
+    cameraPosition.x *= cameraHalfWidth;
+    cameraPosition.y *= cameraHalfHeight;
+    cameraPosition.x /= Game.cameraScale;
+    cameraPosition.y /= Game.cameraScale;
+    cameraPosition.x -= Game.cameraX;
+    cameraPosition.y -= Game.cameraY;
+
     let worldPosition = this.clonePoint(clipPosition);
     worldPosition.x += pixelSize * cameraUpperLeft.ulX;
     worldPosition.y += pixelSize * cameraUpperLeft.ulY;
 
     worldPosition.x /= Game.cameraScale;
 
-    toPrint += " World Position " + this.toString(worldPosition);
+    toPrint += " World Position " + this.toString(cameraPosition);
     console.log(toPrint);
 
 
