@@ -91,10 +91,26 @@ class ControllerComponent extends Component {
     let cameraHalfHeight = Game.cameraWidth/2;
     let halfScreenWidth = aspectRatio.newX/2;
     let halfScreenHeight = aspectRatio.newY/2;
+
+
+    let x = playerCircle.x;
+    let y = playerCircle.y;
+
+    x -= Game.cameraX;
+    y -= Game.cameraY;
+
+    x /= Game.cameraWidth/2 / Game.cameraScale;
+    y /= Game.cameraWidth/2 / Game.cameraScale;
+
+    x *= aspectRatio.newX/2;
+    y *= aspectRatio.newY/2;
+
+    x += aspectRatio.newX/2;
+    y += aspectRatio.newY/2;
     
     //Do the actual tracing
-    transitionText.x = 0;
-    transitionText.y = 0;
+    transitionText.x = x;
+    transitionText.y = y;
 
 
     //Now print the mouse position
@@ -102,7 +118,33 @@ class ControllerComponent extends Component {
     let toPrint = "";
     toPrint += "Browser Position " + this.toString(screenPosition);
 
-    console.log(toPrint);
+    x = screenPosition.x;
+    y = screenPosition.y;
+
+    x-=aspectRatio.marginX;
+    y-=aspectRatio.marginY;
+
+    x-=aspectRatio.newX/2;
+    y-=aspectRatio.newY/2;
+     
+    x/=aspectRatio.newX/2;
+    y/=aspectRatio.newY/2;
+
+    x *= Game.cameraWidth/2/Game.cameraScale;
+    y *= Game.cameraWidth/2/Game.cameraScale;
+
+    x += Game.cameraX;
+    y += Game.cameraY;
+
+    console.log(x + ", " + y);
+
+
+    if(Collisions.inCollision(new Point(null, x,y), playerCircle)){
+      playerGameObject.getComponent("CircleDraw").fillStyle = "orange"
+    }
+    else{
+      playerGameObject.getComponent("CircleDraw").fillStyle = "gray"
+    }
 
 
   }
