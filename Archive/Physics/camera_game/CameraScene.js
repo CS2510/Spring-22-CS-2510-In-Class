@@ -26,6 +26,7 @@ class CameraScene extends Scene {
       "Clip Scene",
       "Add Camera",
       "Split Layers",
+      "Zoomed",
       "Everything",
     ];
 
@@ -39,12 +40,14 @@ class CameraScene extends Scene {
     }
 
     let player1 = new PrefabCircle("Player", 0, 0, 10);
-    player1.layer = 0;
+    player1.layer = -1;
     this.gameObjects.push(player1);
 
 
 
     this.gameObjects.push(new PrefabEmpty("ControllerGameObject").addComponent(new ControllerComponent()));
+
+    this.gameObjects.push(new PrefabTextSmall("TransitionText" ,0, 0, "Transition Text"));
 
 
 
@@ -132,14 +135,14 @@ class CameraScene extends Scene {
   }
   drawWorldSpace(ctx){
     //Draw Layers
-    for (let i = -2; i <= 0; i++) {
+    for (let i = -2; i <= -1; i++) {
       for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
         gameObject.draw(ctx);
       }
     }
   }
   drawUI(ctx){
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 0; i <= 2; i++) {
       for (let gameObject of this.gameObjects.filter(go => go.layer == i)) {
         gameObject.draw(ctx);
       }

@@ -27,6 +27,7 @@
     import ClipScene from "./camera_game/ClipScene.js"
     import AddCamera from "./camera_game/AddCamera.js"
     import SplitLayers from "./camera_game/SplitLayers.js"
+    import Zoom from "./camera_game/Zoom.js"
     import SceneEverything from "./camera_game/SceneEverything.js"
 
     Input.attach(document);
@@ -41,9 +42,10 @@
     Game.scenes.push(new ClipScene());
     Game.scenes.push(new AddCamera());
     Game.scenes.push(new SplitLayers());
+    Game.scenes.push(new Zoom());
     Game.scenes.push(new SceneEverything());
     Game.changeScene(0)
-
+    
     //Setup the camera
     Game.cameraX = 0;
     Game.cameraY = 0;

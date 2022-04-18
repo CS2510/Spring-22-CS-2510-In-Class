@@ -12,12 +12,13 @@ import Point from "../engine/Point.js";
 import PointDraw from "../engine/PointDraw.js";
 
 
-class SplitLayers extends CameraScene {
+class Zoom extends CameraScene {
   constructor() {
     super();
   }
   
   draw(ctx) {
+    console.log("Zoom " + Game.cameraScale);
     
    
     //Fill the canvas to the browser
@@ -30,6 +31,8 @@ class SplitLayers extends CameraScene {
     this.centerAspectRatio(ctx, aspectRatio);
     this.drawBackground(ctx, aspectRatio);
     this.clip(ctx, aspectRatio);
+
+
 
     //Now adjust for the camera
     ctx.save();
@@ -46,8 +49,9 @@ class SplitLayers extends CameraScene {
     //Draw the game objects that are not affected by the camera movement
     this.drawUI(ctx)
     ctx.restore();//Remove aspect ratio transforms
+
     
   }
 }
 
-export default SplitLayers;
+export default Zoom;
