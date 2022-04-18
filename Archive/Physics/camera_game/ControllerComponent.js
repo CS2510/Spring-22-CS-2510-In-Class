@@ -121,11 +121,12 @@ class ControllerComponent extends Component {
 
 
     //Now print the mouse position
-    let mousePosition = Input.getMousePosition();
+    let screenPosition = Input.getMousePosition();
     let toPrint = "";
-    toPrint += "Browser Position " + this.toString(mousePosition);
+    toPrint += "Browser Position " + this.toString(screenPosition);
 
-    let clipPosition = this.clonePoint(mousePosition);
+
+    let clipPosition = this.clonePoint(screenPosition);
     clipPosition.x -= aspectRatio.marginX;
     clipPosition.y -= aspectRatio.marginY;
     toPrint += " Clip Position " + this.toString(clipPosition);
@@ -142,11 +143,11 @@ class ControllerComponent extends Component {
     cameraPosition.x -= Game.cameraX;
     cameraPosition.y -= Game.cameraY;
 
-    let worldPosition = this.clonePoint(clipPosition);
-    worldPosition.x += pixelSize * cameraUpperLeft.ulX;
-    worldPosition.y += pixelSize * cameraUpperLeft.ulY;
+    // let worldPosition = this.clonePoint(clipPosition);
+    // worldPosition.x += pixelSize * cameraUpperLeft.ulX;
+    // worldPosition.y += pixelSize * cameraUpperLeft.ulY;
 
-    worldPosition.x /= Game.cameraScale;
+    // worldPosition.x /= Game.cameraScale;
 
     toPrint += " World Position " + this.toString(cameraPosition);
     console.log(toPrint);
