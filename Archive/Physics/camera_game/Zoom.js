@@ -18,9 +18,7 @@ class Zoom extends CameraScene {
   }
   
   draw(ctx) {
-    console.log("Zoom " + Game.cameraScale);
     
-   
     //Fill the canvas to the browser
 
     this.resizeCanvas(ctx)

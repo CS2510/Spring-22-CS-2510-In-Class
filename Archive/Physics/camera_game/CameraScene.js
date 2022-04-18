@@ -129,6 +129,11 @@ class CameraScene extends Scene {
     let ulY = Game.cameraY - (Game.cameraWidth / 2) / Game.cameraScale;
     return {ulX, ulY};
   }
+  getCameraLowerRight(){
+    let ulX = Game.cameraX + (Game.cameraWidth / 2) / Game.cameraScale;
+    let ulY = Game.cameraY + (Game.cameraWidth / 2) / Game.cameraScale;
+    return {ulX, ulY};
+  }
   addCamera(ctx, pixelSize, cameraUpperLeft){
     ctx.translate(pixelSize * -cameraUpperLeft.ulX, pixelSize * -cameraUpperLeft.ulY)
     ctx.scale(pixelSize, pixelSize);

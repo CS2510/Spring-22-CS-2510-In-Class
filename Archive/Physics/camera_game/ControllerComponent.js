@@ -22,7 +22,7 @@ class ControllerComponent extends Component {
   update(ctx) {
 
     Game.cameraScale = 1;
-    if(Game.scene().constructor.name == "Zoom"){
+    if (Game.scene().constructor.name == "Zoom") {
       Game.cameraScale = 2;
     }
 
@@ -42,7 +42,7 @@ class ControllerComponent extends Component {
       Game.changeScene(6);
     if (Input.getKeyDown("8")) {
       Game.changeScene(7);
-     
+
     }
     if (Input.getKeyDown("9"))
       Game.changeScene(8);
@@ -65,6 +65,10 @@ class ControllerComponent extends Component {
       diffY -= this.playerSpeed * Time.secondsBetweenFrame;
     }
 
+    if (diffX || diffY) {
+      console.log(diffX + ", " + diffY);
+    }
+
     //Check to see if the player can move in the desired direction
     if (playerCircle.x + diffX > -this.circleHalfRange + playerCircle.r &&
       playerCircle.x + diffX + playerCircle.r < this.circleHalfRange)
@@ -78,28 +82,95 @@ class ControllerComponent extends Component {
     //Update the transition text
     let transitionTextGameObject = Game.findByNameOne("TransitionText");
     let transitionText = transitionTextGameObject.getComponent("Text");
-    ;
-
-    //let currentTransform = ctx.getTransform();
+    
     let currentScene = Game.scene();
-    let cameraUpperLeft = currentScene.getCameraUpperLeft(ctx);
     let aspectRatio = currentScene.aspectRatio(ctx);
     let pixelSize = currentScene.getPixelSize(aspectRatio);
+    let cameraUpperLeft = currentScene.getCameraUpperLeft(ctx);
+    
+    let wx = playerCircle.x;
+    let wy = playerCircle.y;
 
-    //ctx.translate(pixelSize * -cameraUpperLeft.ulX, pixelSize * -cameraUpperLeft.ulY)
-    let offsetX = pixelSize * -cameraUpperLeft.ulX;
-    let offsetY = pixelSize * -cameraUpperLeft.ulY
+    //Move to camera space
+    let cx = wx - Game.cameraX;
+    let cy = wy - Game.cameraY;
 
-    let worldSpaceX = playerCircle.x * pixelSize;
-    let worldSpaceY = playerCircle.y * pixelSize
+    cx *= Game.cameraScale;
+    cy *= Game.cameraScale;
 
-    transitionText.x = worldSpaceX;
-    transitionText.y = worldSpaceY;
-
-    transitionText.x += offsetX;
-    transitionText.y += offsetY;
+    
+    let cameraHalfWidth = Game.cameraWidth/2;
+    let cameraHalfHeight = Game.cameraWidth/2;
 
 
+    let clipX = cx/(cameraHalfWidth)
+    let clipY = cy/(cameraHalfHeight)
+
+    //Should be in -1 to 1
+    //Find half width of screen width
+    let halfScreenWidth = aspectRatio.newX/2;
+    let halfScreenHeight = aspectRatio.newY/2;
+
+    let screenX = clipX * halfScreenWidth + halfScreenWidth;
+    let screenY = clipY * halfScreenHeight + halfScreenHeight;
+
+    
+
+    let camULX= currentScene.getCameraUpperLeft().x;
+    let camULY= currentScene.getCameraUpperLeft().y;
+    let camLRX= currentScene.getCameraLowerRight().x;
+    let camLRY= currentScene.getCameraLowerRight().y;
+
+    // let cameraUpperLeft = currentScene.getCameraUpperLeft(ctx);
+    // let pixelSize = currentScene.getPixelSize(aspectRatio);
+
+    // let clipWidth = aspectRatio.newX;
+    // let clipHeight = aspectRatio.newY;
+
+    // let offsetX = pixelSize * -cameraUpperLeft.ulX;
+    // let offsetY = pixelSize * -cameraUpperLeft.ulY
+
+    // let worldSpaceX = playerCircle.x;
+    // let worldSpaceY = playerCircle.y;
+
+    // let cameraSpaceX = worldSpaceX * pixelSize;
+    // let cameraSpaceY = worldSpaceY * pixelSize;
+
+    // transitionText.x = cameraSpaceX;
+    // transitionText.y = cameraSpaceY;
+
+    transitionText.x = screenX;
+    transitionText.y = screenY;
+
+    // transitionText.x += offsetX;
+    // transitionText.y += offsetY;
+
+    //Now print the mouse position
+    let mousePosition = Input.getMousePosition();
+    let toPrint = "";
+    toPrint += "Browser Position " + this.toString(mousePosition);
+
+    let clipPosition = this.clonePoint(mousePosition);
+    clipPosition.x -= aspectRatio.marginX;
+    clipPosition.y -= aspectRatio.marginY;
+    toPrint += " Clip Position " + this.toString(clipPosition);
+
+    let worldPosition = this.clonePoint(clipPosition);
+    worldPosition.x += pixelSize * cameraUpperLeft.ulX;
+    worldPosition.y += pixelSize * cameraUpperLeft.ulY;
+
+    worldPosition.x /= Game.cameraScale;
+
+    toPrint += " World Position " + this.toString(worldPosition);
+    console.log(toPrint);
+
+
+  }
+  clonePoint(object) {
+    return { x: object.x, y: object.y };
+  }
+  toString(point) {
+    return point.x + ", " + point.y;
   }
 }
 
