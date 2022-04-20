@@ -29,7 +29,6 @@ class ControllerComponent extends Component {
 
       if (Input.getKeyDown(" ")) {
         frameAcceleration = -200;
-        console.log(this.jumpTimer);
         this.jumpTimer = 0;
       }
     }
@@ -43,9 +42,22 @@ class ControllerComponent extends Component {
     flappy.y += this.velocity * Time.secondsBetweenFrame;
 
 
-    if(flappy.y >= 200){
+    if (flappy.y >= 200) {
       Game.changeScene(0);
     }
+
+    //Now update the text
+    let positionGameObject = Game.findByNameOne("PositionText");
+    let velocityGameObject = Game.findByNameOne("VelocityText");
+    let accelerationGameObject = Game.findByNameOne("AccelerationText");
+
+    let position = positionGameObject.getComponent("Text");
+    let velocity = velocityGameObject.getComponent("Text");
+    let acceleration = accelerationGameObject.getComponent("Text");
+
+    position.text = "Position: " + flappy.y.toFixed(2);
+    velocity.text = "Velocity: " + this.velocity.toFixed(2);
+    acceleration.text = "Acceleration: " + frameAcceleration.toFixed(2);
 
 
 

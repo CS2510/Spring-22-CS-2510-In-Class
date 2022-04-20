@@ -17,6 +17,10 @@ class MainScene extends Scene{
   
     this.gameObjects.push(new PrefabTextSmall("FlappyCircle", 10, 20, "Flappy Circle Game"))
     this.gameObjects.push(new PrefabTextSmall("PushSpace", 10, 40, "Push space to exert an upward force."))
+    this.gameObjects.push(new PrefabTextSmall("PositionText", 10, 60, ""))
+    this.gameObjects.push(new PrefabTextSmall("VelocityText", 10, 80, ""))
+    this.gameObjects.push(new PrefabTextSmall("AccelerationText", 10, 100, ""))
+
 
     this.gameObjects.push(new PrefabCircle("Flappy", 0, 0, 10));
 
