@@ -91,7 +91,7 @@ class ControllerComponent extends Component {
     player.x = newX;
     player.y = newY;
 
-    if(player.x == 11)
+    if(player.y <= -10)
       console.log(50);
 
 
@@ -105,6 +105,38 @@ class ControllerComponent extends Component {
       let collisions = brickGameObjects.filter(b => Collisions.inCollision(player, b.getComponent("Rectangle"))).map(b => b.getComponent("Rectangle"));
       
       if (collisions.length == 0) break;
+
+      // let maxBelow = this.belowMax(collisions, player);
+      // let maxAbove = this.aboveMax(collisions, player);
+      // let maxRight = this.rightMax(collisions, player);
+      // let maxLeft = this.leftMax(collisions, player);
+
+      // let max = Math.max(maxBelow, maxAbove, maxRight, maxLeft)
+      // console.log(max);
+      // if(maxBelow != -1){
+      //   player.y -= maxBelow;
+      //   this.velocityY = 0;
+      //   newVelocityY = 0;
+      //   //break;
+      //   //continue;
+      // }
+      // else if(maxRight != -1){
+      //   player.x -= maxRight;
+      //   this.velocityX = 0;
+      //   newVelocityX = 0;
+      //   ;
+      // }
+      // else if(maxLeft != -1){
+      //   player.x += maxLeft;
+      //   this.velocityX = 0;
+      //   newVelocityX = 0;
+      // }
+      // else if(maxAbove != -1){
+      //   player.y += maxAbove;
+      //   this.velocityY = 0;
+      //   newVelocityY = 0;
+      //   //continue;
+      // }
 
       let maxBelow = this.belowMax(collisions, player);
       let maxAbove = this.aboveMax(collisions, player);
@@ -142,34 +174,34 @@ class ControllerComponent extends Component {
 
       //Filter by direction
      
-      let aboveCollisions = collisions.filter(c => Collisions.isCollidingUp(player, c));
-      if(aboveCollisions.length > 0){
-        console.log("Above Collision Resolution")
-        let maxAboveCollisionDistance = Math.max(...aboveCollisions.map(b=>Collisions.collidingUpAmount(player, b)));
-        player.y -= maxAboveCollisionDistance
-        this.velocityY = 0;
+      // let aboveCollisions = collisions.filter(c => Collisions.isCollidingUp(player, c));
+      // if(aboveCollisions.length > 0){
+      //   console.log("Above Collision Resolution")
+      //   let maxAboveCollisionDistance = Math.max(...aboveCollisions.map(b=>Collisions.collidingUpAmount(player, b)));
+      //   player.y -= maxAboveCollisionDistance
+      //   this.velocityY = 0;
 
-        continue;
-      }
-      let rightCollisions = collisions.filter(c => Collisions.isCollidingRight(player, c));
-      if(rightCollisions.length > 0){
-        console.log("Right Collision Resolution")
-        let maxRightCollisionDistance = Math.max(...rightCollisions.map(b=>Collisions.collidingRightAmount(player, b)));
-        player.x -= maxRightCollisionDistance
-        this.velocityX = 0;
+      //   continue;
+      // }
+      // let rightCollisions = collisions.filter(c => Collisions.isCollidingRight(player, c));
+      // if(rightCollisions.length > 0){
+      //   console.log("Right Collision Resolution")
+      //   let maxRightCollisionDistance = Math.max(...rightCollisions.map(b=>Collisions.collidingRightAmount(player, b)));
+      //   player.x -= maxRightCollisionDistance
+      //   this.velocityX = 0;
 
-        continue;
-      }
-      let leftCollisions = collisions.filter(c => Collisions.isCollidingLeft(player, c));
-      if(leftCollisions.length > 0){
-        console.log("Left Collision Resolution")
-        let maxLeftCollisionDistance = Math.max(...leftCollisions.map(b=>Collisions.collidingLeftAmount(player, b)));
-        player.x -= maxLeftCollisionDistance
-        this.velocityX = 0;
+      //   continue;
+      // }
+      // let leftCollisions = collisions.filter(c => Collisions.isCollidingLeft(player, c));
+      // if(leftCollisions.length > 0){
+      //   console.log("Left Collision Resolution")
+      //   let maxLeftCollisionDistance = Math.max(...leftCollisions.map(b=>Collisions.collidingLeftAmount(player, b)));
+      //   player.x -= maxLeftCollisionDistance
+      //   this.velocityX = 0;
 
-        continue;
-      }
-      break;
+      //   continue;
+      // }
+      // break;
 
     }
     

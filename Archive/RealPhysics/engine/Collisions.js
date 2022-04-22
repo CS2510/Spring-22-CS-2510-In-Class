@@ -10,27 +10,44 @@ class Collisions {
       console.error("Bad isAbove call")
       return false;
     }
-    return one.x < two.x + two.w  && one.x + one.w > two.x + two.w;
+    let UL = Math.atan2(-two.h/2, -two.w/2);
+    let UR = Math.atan2(-two.h/2, two.w/2);
+    let LL = Math.atan2(two.h/2, -two.w/2);
+    let LR = Math.atan2(two.h/2, two.w/2);
+    let dx = (one.x+one.w/2) - (two.x+two.w/2);
+    let dy = (one.y+one.h/2) - (two.y+two.h/2);
+    let theta = Math.atan2(dy, dx);
+    return one.x < two.x + two.w  && one.x + one.w > two.x + two.w && theta > UR && theta < LR;
   }
   static collidingLeftAmount(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
       console.error("Bad isAbove call")
       return false;
     }
-    return one.x  - ( two.x + two.w);
+    return ( two.x + two.w) - one.x;
   }
   static isCollidingRight(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
       console.error("Bad isAbove call")
       return false;
     }
-    return one.x + one.w > two.x  && one.x < two.x;
+
+    let UL = Math.atan2(-two.h/2, -two.w/2);
+    let UR = Math.atan2(-two.h/2, two.w/2);
+    let LL = Math.atan2(two.h/2, -two.w/2);
+    let LR = Math.atan2(two.h/2, two.w/2);
+    let dx = (one.x+one.w/2) - (two.x+two.w/2);
+    let dy = (one.y+one.h/2) - (two.y+two.h/2);
+    let theta = Math.atan2(dy, dx);
+
+    return one.x + one.w > two.x  && one.x < two.x && theta < UL || theta > LL;
   }
   static collidingRightAmount(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
       console.error("Bad isAbove call")
       return false;
     }
+    
     return one.x + one.w - two.x;
   }
   static isCollidingUp(one, two){
@@ -38,7 +55,15 @@ class Collisions {
       console.error("Bad isAbove call")
       return false;
     }
-    return one.y < two.y + two.h && one.y + one.h > two.y + two.h;
+    let UL = Math.atan2(-two.h/2, -two.w/2);
+    let UR = Math.atan2(-two.h/2, two.w/2);
+    let LL = Math.atan2(two.h/2, -two.w/2);
+    let LR = Math.atan2(two.h/2, two.w/2);
+    let dx = (one.x+one.w/2) - (two.x+two.w/2);
+    let dy = (one.y+one.h/2) - (two.y+two.h/2);
+    let theta = Math.atan2(dy, dx);
+
+    return one.y < two.y + two.h && one.y + one.h > two.y + two.h && theta< LL && theta > LR;
   }
   static collidingUpAmount(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
@@ -52,7 +77,15 @@ class Collisions {
       console.error("Bad isAbove call")
       return false;
     }
-    return one.y < two.y && one.y + one.h > two.y;
+    let UL = Math.atan2(-two.h/2, -two.w/2);
+    let UR = Math.atan2(-two.h/2, two.w/2);
+    let LL = Math.atan2(two.h/2, -two.w/2);
+    let LR = Math.atan2(two.h/2, two.w/2);
+    let dx = (one.x+one.w/2) - (two.x+two.w/2);
+    let dy = (one.y+one.h/2) - (two.y+two.h/2);
+    let theta = Math.atan2(dy, dx);
+
+    return one.y < two.y && one.y + one.h > two.y && theta > UL && theta < UR ;
   }
   static collidingDownAmount(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){

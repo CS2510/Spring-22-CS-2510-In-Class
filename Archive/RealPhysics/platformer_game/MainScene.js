@@ -35,6 +35,7 @@ class MainScene extends Scene{
     this.gameObjects.push(new PrefabBrick("PrefabBrick", -20, -20, 40, 10));
 
     this.gameObjects.push(new PrefabBrick("PrefabBrick", 20, 10, 40, 10));
+    this.gameObjects.push(new PrefabBrick("PrefabBrick", -60, 10, 40, 10));
     this.gameObjects.push(new PrefabBrick("PrefabBrick", 60, 20, 40, 10));
     this.gameObjects.push(new PrefabBrick("PrefabBrick", 60, -10, 40, 10));
     
