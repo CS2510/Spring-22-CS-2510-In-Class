@@ -4,6 +4,63 @@ import Rectangle from "./components/Rectangle.js"
 import MathPoint from "./math/Point.js";
 
 class Collisions {
+
+  static isCollidingLeft(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.x < two.x + two.w  && one.x + one.w > two.x + two.w;
+  }
+  static collidingLeftAmount(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.x  - ( two.x + two.w);
+  }
+  static isCollidingRight(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.x + one.w > two.x  && one.x < two.x;
+  }
+  static collidingRightAmount(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.x + one.w - two.x;
+  }
+  static isCollidingUp(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.y < two.y + two.h && one.y + one.h > two.y + two.h;
+  }
+  static collidingUpAmount(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return (two.y + two.h) - one.y;
+  }
+  static isCollidingDown(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.y < two.y && one.y + one.h > two.y;
+  }
+  static collidingDownAmount(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return (one.y + one.h) - two.y;
+  }
   static isAbove(one, two){
     if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
       console.error("Bad isAbove call")
@@ -120,10 +177,10 @@ class Collisions {
       }
       //AAR/AAR
       if (two instanceof Rectangle) {
-        let outside = one.x > two.x + two.w || //Two is left of one
-          one.x + one.w < two.x || //Two is right of one
-          one.y > two.y + two.h || //Two is below one
-          one.y + one.h < two.y; //Two is above one
+        let outside = one.x >= two.x + two.w || //Two is left of one
+          one.x + one.w <= two.x || //Two is right of one
+          one.y >= two.y + two.h || //Two is below one
+          one.y + one.h <= two.y; //Two is above one
         return !outside
       }
       //AAR/Circle
