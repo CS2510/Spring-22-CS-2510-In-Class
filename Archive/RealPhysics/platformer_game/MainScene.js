@@ -9,6 +9,7 @@ import Game from "../engine/Game.js"
 import Scene from "../engine/Scene.js"
 
 import PrefabGround from "./PrefabGround.js"
+import PrefabBrick from "./PrefabBrick.js"
 
 class MainScene extends Scene{
   constructor(){
@@ -19,18 +20,22 @@ class MainScene extends Scene{
   
     this.gameObjects.push(new PrefabTextSmall("PlatformerTitle", 10, 20, "Simple Platformer Game"))
     // this.gameObjects.push(new PrefabTextSmall("PushSpace", 10, 40, "Push space to exert an upward force."))
-    this.gameObjects.push(new PrefabTextSmall("PositionText", 10, 60, ""))
-    this.gameObjects.push(new PrefabTextSmall("VelocityText", 10, 80, ""))
-    this.gameObjects.push(new PrefabTextSmall("AccelerationText", 10, 100, ""))
+    this.gameObjects.push(new PrefabTextSmall("PositionTextY", 10, 60, ""))
+    this.gameObjects.push(new PrefabTextSmall("VelocityTextY", 10, 80, ""))
+    this.gameObjects.push(new PrefabTextSmall("AccelerationTextY", 10, 100, ""))
+
+    this.gameObjects.push(new PrefabTextSmall("PositionTextX", 10, 140, ""))
+    this.gameObjects.push(new PrefabTextSmall("VelocityTextX", 10, 160, ""))
+    this.gameObjects.push(new PrefabTextSmall("AccelerationTextX", 10, 180, ""))
 
 
     this.gameObjects.push(new PrefabRectangle("Player", 0, 0, 10, 10));
 
-    this.gameObjects.push(new PrefabGround("PrefabGround", -20, 20, 40, 10));
+    this.gameObjects.push(new PrefabBrick("PrefabBrick", -20, 20, 40, 10));
 
-    this.gameObjects.push(new PrefabGround("PrefabGround", 20, 30, 40, 10));
-    this.gameObjects.push(new PrefabGround("PrefabGround", 60, 20, 40, 10));
-    this.gameObjects.push(new PrefabGround("PrefabGround", 60, -10, 40, 10));
+    // this.gameObjects.push(new PrefabGround("PrefabGround", 20, 30, 40, 10));
+    // this.gameObjects.push(new PrefabGround("PrefabGround", 60, 20, 40, 10));
+    // this.gameObjects.push(new PrefabGround("PrefabGround", 60, -10, 40, 10));
     
 
 

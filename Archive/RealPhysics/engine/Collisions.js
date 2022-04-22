@@ -4,6 +4,20 @@ import Rectangle from "./components/Rectangle.js"
 import MathPoint from "./math/Point.js";
 
 class Collisions {
+  static isAbove(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.y+one.h > two.y;
+  }
+  static isRestingOn(one, two){
+    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+      console.error("Bad isAbove call")
+      return false;
+    }
+    return one.y+one.h == two.y;
+  }
   static inCollisionForceMultiples(one, two) {
     let newOnes = [];
     
