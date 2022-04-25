@@ -1,7 +1,7 @@
 import PrefabRectangle from "../engine/prefabs/PrefabRectangle.js";
 import PrefabTextSmall from "../engine/prefabs/PrefabTextSmall.js";
 import PrefabEmpty from "../engine/prefabs/PrefabEmpty.js";
-import ControllerComponent from "./ControllerComponent.js"
+import OldCollider from "./OldController.js"
 import SceneController from "./SceneController.js"
 import Scene from "../engine/Scene.js"
 
@@ -14,7 +14,7 @@ class MainScene extends Scene{
   start(){
 
     //Add a title
-    this.gameObjects.push(new PrefabTextSmall("PlatformerTitle", 10, 20, "Simple Platformer Game - Space to Jump"))
+    this.gameObjects.push(new PrefabTextSmall("PlatformerTitle", 10, 20, "Simple Platformer Game - Bad"))
     
     //Keep track of the physics in y
     this.gameObjects.push(new PrefabTextSmall("PositionTextY", 10, 60, ""))
@@ -43,8 +43,7 @@ class MainScene extends Scene{
     this.gameObjects.push(new PrefabBrick("PrefabBrick", 60, -10, 10, 10));
     
     //Add the controller to the scene
-    this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new ControllerComponent()));
-
+    this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new OldCollider()));
     this.gameObjects.push(new PrefabEmpty("SceneController").addComponent(new SceneController()));
   }
 }

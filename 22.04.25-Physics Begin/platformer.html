@@ -20,6 +20,8 @@
 
 
     import Game from "./engine/Game.js"
+    import SimpleMainScene from "./platformer_game/SimpleScene.js"
+    import OldMainScene from "./platformer_game/OldMainScene.js"
     import MainScene from "./platformer_game/MainScene.js"
 
     Input.attach(document);
@@ -27,6 +29,8 @@
     let { canvas, ctx } = getCanvas();
 
 
+    Game.scenes.push(new SimpleMainScene());
+    Game.scenes.push(new OldMainScene());
     Game.scenes.push(new MainScene());
     
     Game.changeScene(0)
