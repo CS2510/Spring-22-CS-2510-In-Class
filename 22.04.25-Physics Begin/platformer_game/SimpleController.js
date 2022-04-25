@@ -15,9 +15,9 @@ class ControllerComponent extends Component {
     this.jumpTimer = 0;
     this.jumpStep = 1;
     this.canJump = false;
-    this.lateralAcceleration = 1000;
+    this.lateralAcceleration = 10;
     this.gravity = 32;
-    this.jumpForce = 500;
+    this.jumpForce = 50;
     this.FALLING = 0;
     this.RESTING = 1;
     this.JUMPING = 2
@@ -51,9 +51,9 @@ class ControllerComponent extends Component {
     //Deal with left and right movement
 
     if (Input.getKey("ArrowLeft"))
-      frameAccelerationX = -this.lateralAcceleration * Time.secondsBetweenFrame;
+      frameAccelerationX = -this.lateralAcceleration / Time.secondsBetweenFrame;
     else if (Input.getKey("ArrowRight"))
-      frameAccelerationX = this.lateralAcceleration * Time.secondsBetweenFrame;
+      frameAccelerationX = this.lateralAcceleration / Time.secondsBetweenFrame;
     else{
       frameAccelerationX = 0;
     }
@@ -108,7 +108,7 @@ class ControllerComponent extends Component {
     if (this.jumpTimer >= this.jumpStep && this.canJump) {
 
       if (Input.getKeyDown(" ") || Input.getKeyDown("ArrowUp")) {
-        frameAccelerationY = -this.jumpForce;
+        frameAccelerationY = -this.jumpForce / Time.secondsBetweenFrame;
         this.jumpTimer = 0;
       }
     }
