@@ -20,6 +20,8 @@
 
 
     import Game from "./engine/Game.js"
+    import StartScene from "./lottery_game/StartScene.js"
+    import RocketScene from "./lottery_game/RocketScene.js"
     import MainScene from "./lottery_game/MainScene.js"
     import ElevatorScene from "./lottery_game/ElevatorScene.js"
     import BigScene from "./lottery_game/BigScene.js"
@@ -29,6 +31,8 @@
     let { canvas, ctx } = getCanvas();
 
 
+    Game.scenes.push(new StartScene());
+    Game.scenes.push(new RocketScene());
     Game.scenes.push(new MainScene());
     Game.scenes.push(new ElevatorScene());
     Game.scenes.push(new BigScene());
