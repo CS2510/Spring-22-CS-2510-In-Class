@@ -132,6 +132,16 @@ class ControllerComponent extends Component {
     this.velocityX = newVelocityX;
     this.velocityY = newVelocityY;
 
+    //Move the camera
+    Game.cameraX = player.x;
+    Game.cameraY = player.y;
+    // Game.cameraCenterX = 0;
+    // Game.cameraCenterY = 0;
+    
+    // Game.cameraULX = -20 + Game.cameraCenterX;
+    // Game.cameraULY = -20 + Game.cameraCenterY;
+    Game.cameraWidth = 200;
+    Game.cameraScale = 1;
 
 
 
