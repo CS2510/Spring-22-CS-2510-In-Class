@@ -21,7 +21,7 @@ class SceneController extends Component {
       "Push 1 for simple below collisions.",
       "Push 2 for naive directional collisions.",
       "Push 3 for angle-based collisions.",
-      "Push 4 for quad-based collisions.",
+      //"Push 4 for quad-based collisions.",
 
       
     ]
