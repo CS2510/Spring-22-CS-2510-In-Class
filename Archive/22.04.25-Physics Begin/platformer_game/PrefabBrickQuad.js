@@ -11,6 +11,12 @@ class PrefabBrickQuad extends PrefabRectangle{
     let minDimension = Math.min(w,h);
     let line;
 
+    this.center1x = x+minDimension/2;
+    this.center1y = y+minDimension/2;
+    this.center2x = x+w-minDimension/2;
+    this.center2y = y+h-minDimension/2;
+
+
     line = new PrefabLine("Debugging Line", x, y, x+minDimension/2, y+minDimension/2);
     line.getComponent("LineDraw").lineWidth=lineWidth;
     line.getComponent("LineDraw").strokeStyle = "yellow";

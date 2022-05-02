@@ -24,14 +24,30 @@ class BrickController extends Component{
     
     //follow the player with the follow line
     let followLine = this.parent.components[this.parent.components.length - 4];
+    let followLineDraw1 = this.parent.components[this.parent.components.length - 3];
     followLine.x2 = player.x + player.w/2;
     followLine.y2 = player.y + player.h/2;
 
     let followLine2 = this.parent.components[this.parent.components.length - 2];
+    let followLineDraw2 = this.parent.components[this.parent.components.length - 1];
     followLine2.x2 = player.x + player.w/2;
     followLine2.y2 = player.y + player.h/2;
 
-    let length1 = 0;
+    let length1 = followLine.length();
+    let length2 = followLine2.length();
+    let minLength = Math.min(length1, length2);
+    if(minLength > 50){
+      followLineDraw1.strokeStyle = "Transparent";
+      followLineDraw2.strokeStyle = "Transparent";
+    }
+    else if(length1 < length2){
+      followLineDraw1.strokeStyle = "White";
+      followLineDraw2.strokeStyle = "Transparent";
+    }
+    else{
+      followLineDraw1.strokeStyle = "Transparent";
+      followLineDraw2.strokeStyle = "White";
+    }
 
   }
 }

@@ -1,7 +1,7 @@
 import Component from "../engine/Component.js"
 import Game from "../engine/Game.js"
 import Input from "../engine/Input.js"
-import Collisions from "./LineCollisions.js";
+import Collisions from "./QuadCollisions.js";
 
 import Time from "../engine/Time.js"
 
@@ -22,6 +22,7 @@ class ControllerComponent extends Component {
     this.gameTimer = 0;
   }
   update(ctx) {
+    //return;
 
     //Update the global timer 
     this.gameTimer += Time.secondsBetweenFrame;

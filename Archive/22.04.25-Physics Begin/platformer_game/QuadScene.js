@@ -1,7 +1,7 @@
 import PrefabRectangle from "../engine/prefabs/PrefabRectangle.js";
 import PrefabTextSmall from "../engine/prefabs/PrefabTextSmall.js";
 import PrefabEmpty from "../engine/prefabs/PrefabEmpty.js";
-import ControllerComponent from "./LineController.js"
+import ControllerComponent from "./QuadController.js"
 import SceneController from "./SceneController.js"
 import Scene from "../engine/Scene.js"
 import Game from "../engine/Game.js"
@@ -32,7 +32,7 @@ class MainScene extends Scene{
 
 
     //Create the player
-    this.gameObjects.push(new PrefabRectangle("Player", 0, 0, 10, 10));
+    this.gameObjects.push(new PrefabRectangle("Player", -21, 8, 10, 10));
 
     //Create the level by adding bricks
     this.gameObjects.push(new PrefabBrick("PrefabBrick", -20, 20, 40, 10)); //One below the player
@@ -42,13 +42,10 @@ class MainScene extends Scene{
     
     //Create the bricks above
     this.gameObjects.push(new PrefabBrick("PrefabBrick", -20, -20, 50, 10));
-    this.gameObjects.push(new PrefabBrick("PrefabBrick", 60, -10, 10, 10));
+    // this.gameObjects.push(new PrefabBrick("PrefabBrick", 60, -10, 10, 10));
 
 
-    //Add debugging lines
-    // let line = new PrefabLine("Debugging Line", -20, 20, -20+40, 20+10);
-    // line.getComponent("LineDraw").lineWidth=1;
-    // this.gameObjects.push(line);
+    
     
     //Add the controller to the scene
     this.gameObjects.push(new PrefabEmpty("Controller").addComponent(new ControllerComponent()));

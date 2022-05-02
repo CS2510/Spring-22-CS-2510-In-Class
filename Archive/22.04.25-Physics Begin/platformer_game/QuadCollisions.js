@@ -5,118 +5,197 @@ import MathPoint from "../engine/math/Point.js";
 
 class LineCollisions {
 
-  static isCollidingLeft(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isCollidingLeft(one, two) {
+
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    let UL = Math.atan2(-two.h/2, -two.w/2);
-    let UR = Math.atan2(-two.h/2, two.w/2);
-    let LL = Math.atan2(two.h/2, -two.w/2);
-    let LR = Math.atan2(two.h/2, two.w/2);
-    let dx = (one.x+one.w/2) - (two.x+two.w/2);
-    let dy = (one.y+one.h/2) - (two.y+two.h/2);
-    let theta = Math.atan2(dy, dx);
-    return one.x < two.x + two.w  && one.x + one.w > two.x + two.w && theta > UR && theta < LR;
+    let UL ;
+    let UR 
+    let LL 
+    let LR 
+    let dx1 = (one.x + one.w / 2) - (two.parent.center1x);
+    let dy1 = (one.y + one.h / 2) - (two.parent.center1y);
+    let dx2 = (one.x + one.w / 2) - (two.parent.center2x);
+    let dy2 = (one.y + one.h / 2) - (two.parent.center2y);
+
+    let theta;
+    if (dx1 ** 2 + dy1 ** 2 < dx2 ** 2 + dy2 ** 2) {
+      theta = Math.atan2(dy1, dx1);
+      UL = Math.atan2(two.y - two.parent.center1y, two.x-two.parent.center1x);
+      //UR = Math.atan2(two.parent.center1y, two.parent.center1x);
+      LL = Math.atan2(two.y + two.h - two.parent.center1y, two.x - two.parent.center1x);
+      //LR = Math.atan2(two.parent.center1y, two.parent.center1x);
+    }
+    else {
+      theta = Math.atan2(dy2, dx2);
+      //UL = Math.atan2(-two.h / 2, -two.w / 2);
+      UR = Math.atan2(two.y - two.parent.center1y, two.x+two.w-two.parent.center1x);
+      //LL = Math.atan2(two.h / 2, -two.w / 2);
+      LR = Math.atan2(two.y + two.h - two.parent.center1y, two.x +two.w- two.parent.center1x);
+    }
+
+
+
+
+
+
+    return /*one.x < two.x + two.w && one.x + one.w > two.x + two.w &&*/ theta > UR && theta < LR;
   }
-  static collidingLeftAmount(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static collidingLeftAmount(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    return ( two.x + two.w) - one.x;
+    return (two.x + two.w) - one.x;
   }
-  static isCollidingRight(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isCollidingRight(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
 
-    let UL = Math.atan2(-two.h/2, -two.w/2);
-    let UR = Math.atan2(-two.h/2, two.w/2);
-    let LL = Math.atan2(two.h/2, -two.w/2);
-    let LR = Math.atan2(two.h/2, two.w/2);
-    let dx = (one.x+one.w/2) - (two.x+two.w/2);
-    let dy = (one.y+one.h/2) - (two.y+two.h/2);
-    let theta = Math.atan2(dy, dx);
+    let UL ;
+    let UR 
+    let LL 
+    let LR 
+    let dx1 = (one.x + one.w / 2) - (two.parent.center1x);
+    let dy1 = (one.y + one.h / 2) - (two.parent.center1y);
+    let dx2 = (one.x + one.w / 2) - (two.parent.center2x);
+    let dy2 = (one.y + one.h / 2) - (two.parent.center2y);
 
-    return one.x + one.w > two.x  && one.x < two.x && theta < UL || theta > LL;
+    let theta;
+    if (dx1 ** 2 + dy1 ** 2 < dx2 ** 2 + dy2 ** 2) {
+      theta = Math.atan2(dy1, dx1);
+      UL = Math.atan2(two.y - two.parent.center1y, two.x-two.parent.center1x);
+      //UR = Math.atan2(two.parent.center1y, two.parent.center1x);
+      LL = Math.atan2(two.y + two.h - two.parent.center1y, two.x - two.parent.center1x);
+      //LR = Math.atan2(two.parent.center1y, two.parent.center1x);
+    }
+    else {
+      theta = Math.atan2(dy2, dx2);
+      //UL = Math.atan2(-two.h / 2, -two.w / 2);
+      UR = Math.atan2(two.y - two.parent.center2y, two.x+two.w-two.parent.center2x);
+      //LL = Math.atan2(two.h / 2, -two.w / 2);
+      LR = Math.atan2(two.y + two.h - two.parent.center2y, two.x +two.w- two.parent.center2x);
+      return theta > UR && theta < LR;
+    }
+
+    return /*one.x + one.w > two.x && one.x < two.x &&*/ theta < UL || theta > LL;
   }
-  static collidingRightAmount(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static collidingRightAmount(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    
+
     return one.x + one.w - two.x;
   }
-  static isCollidingUp(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isCollidingUp(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    let UL = Math.atan2(-two.h/2, -two.w/2);
-    let UR = Math.atan2(-two.h/2, two.w/2);
-    let LL = Math.atan2(two.h/2, -two.w/2);
-    let LR = Math.atan2(two.h/2, two.w/2);
-    let dx = (one.x+one.w/2) - (two.x+two.w/2);
-    let dy = (one.y+one.h/2) - (two.y+two.h/2);
-    let theta = Math.atan2(dy, dx);
+    let UL ;
+    let UR 
+    let LL 
+    let LR 
+    let dx1 = (one.x + one.w / 2) - (two.parent.center1x);
+    let dy1 = (one.y + one.h / 2) - (two.parent.center1y);
+    let dx2 = (one.x + one.w / 2) - (two.parent.center2x);
+    let dy2 = (one.y + one.h / 2) - (two.parent.center2y);
 
-    return one.y < two.y + two.h && one.y + one.h > two.y + two.h && theta< LL && theta > LR;
+    let theta;
+    if (dx1 ** 2 + dy1 ** 2 < dx2 ** 2 + dy2 ** 2) {
+      theta = Math.atan2(dy1, dx1);
+      UL = Math.atan2(two.y - two.parent.center1y, two.x-two.parent.center1x);
+      //UR = Math.atan2(two.parent.center1y, two.parent.center1x);
+      LL = Math.atan2(two.y + two.h - two.parent.center1y, two.x - two.parent.center1x);
+      //LR = Math.atan2(two.parent.center1y, two.parent.center1x);
+    }
+    else {
+      theta = Math.atan2(dy2, dx2);
+      //UL = Math.atan2(-two.h / 2, -two.w / 2);
+      UR = Math.atan2(two.y - two.parent.center1y, two.x+two.w-two.parent.center1x);
+      //LL = Math.atan2(two.h / 2, -two.w / 2);
+      LR = Math.atan2(two.y + two.h - two.parent.center1y, two.x +two.w- two.parent.center1x);
+    }
+
+    return /*one.y < two.y + two.h && one.y + one.h > two.y + two.h &&*/ theta < LL && theta > LR;
   }
-  static collidingUpAmount(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static collidingUpAmount(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
     return (two.y + two.h) - one.y;
   }
-  static isCollidingDown(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isCollidingDown(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    let UL = Math.atan2(-two.h/2, -two.w/2);
-    let UR = Math.atan2(-two.h/2, two.w/2);
-    let LL = Math.atan2(two.h/2, -two.w/2);
-    let LR = Math.atan2(two.h/2, two.w/2);
-    let dx = (one.x+one.w/2) - (two.x+two.w/2);
-    let dy = (one.y+one.h/2) - (two.y+two.h/2);
-    let theta = Math.atan2(dy, dx);
+    let UL ;
+    let UR 
+    let LL 
+    let LR 
+    let dx1 = (one.x + one.w / 2) - (two.parent.center1x);
+    let dy1 = (one.y + one.h / 2) - (two.parent.center1y);
+    let dx2 = (one.x + one.w / 2) - (two.parent.center2x);
+    let dy2 = (one.y + one.h / 2) - (two.parent.center2y);
 
-    return one.y < two.y && one.y + one.h > two.y && theta > UL && theta < UR ;
+    let theta;
+    if (dx1 ** 2 + dy1 ** 2 < dx2 ** 2 + dy2 ** 2) {
+      theta = Math.atan2(dy1, dx1);
+      UL = Math.atan2(two.y - two.parent.center1y, two.x-two.parent.center1x);
+      //UR = Math.atan2(two.parent.center1y, two.parent.center1x);
+      LL = Math.atan2(two.y + two.h - two.parent.center1y, two.x - two.parent.center1x);
+      //LR = Math.atan2(two.parent.center1y, two.parent.center1x);
+      return /*one.y < two.y && one.y + one.h > two.y && */ theta > UL && theta < 0;
+    }
+    else {
+      theta = Math.atan2(dy2, dx2);
+      //UL = Math.atan2(-two.h / 2, -two.w / 2);
+      UR = Math.atan2(two.y - two.parent.center1y, two.x+two.w-two.parent.center1x);
+      //LL = Math.atan2(two.h / 2, -two.w / 2);
+      LR = Math.atan2(two.y + two.h - two.parent.center1y, two.x +two.w- two.parent.center1x);
+      return /*one.y < two.y && one.y + one.h > two.y && */ theta < UR ;
+    }
+
+
+    return /*one.y < two.y && one.y + one.h > two.y && */ theta > UL && theta < 0;
   }
-  static collidingDownAmount(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static collidingDownAmount(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
     return (one.y + one.h) - two.y;
   }
-  static isAbove(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isAbove(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    return one.y+one.h > two.y;
+    return one.y + one.h > two.y;
   }
-  static isRestingOn(one, two){
-    if(!(one instanceof Rectangle) || !(two instanceof Rectangle)){
+  static isRestingOn(one, two) {
+    if (!(one instanceof Rectangle) || !(two instanceof Rectangle)) {
       console.error("Bad isAbove call")
       return false;
     }
-    return one.y+one.h == two.y;
+    return one.y + one.h == two.y;
   }
   static inCollisionForceMultiples(one, two) {
     let newOnes = [];
-    
+
     if (one instanceof Circle && two instanceof Rectangle) {
       let radius = one.r;
       newOnes.push(
         new Circle(null,
-          two.x ,
-          two.y ,
+          two.x,
+          two.y,
           radius)
       );
 
@@ -129,7 +208,7 @@ class LineCollisions {
 
       newOnes.push(
         new Circle(null,
-          two.x + two.w ,
+          two.x + two.w,
           two.y + two.h,
           radius)
       );
@@ -142,16 +221,15 @@ class LineCollisions {
       );
 
       newOnes.push(
-        new Rectangle(null, two.x-two.w/2, two.y, two.w+two.w, two.h)
+        new Rectangle(null, two.x - two.w / 2, two.y, two.w + two.w, two.h)
       )
       newOnes.push(
-        new Rectangle(null, two.x, two.y-two.h/2, two.w, two.h+two.h)
+        new Rectangle(null, two.x, two.y - two.h / 2, two.w, two.h + two.h)
       )
 
-      
-      for(let newOne of newOnes)
-      {
-        if(Collisions.inCollision(newOne, new Point(null, one.x, one.y))){
+
+      for (let newOne of newOnes) {
+        if (Collisions.inCollision(newOne, new Point(null, one.x, one.y))) {
           return true;
         }
       }
